@@ -7,11 +7,11 @@ export const TOKEN_NAME = "SECOND_BOOK";
 
 export const doApiGet = async (_url) => {
     try {
-        let resp = await axios.get(_url,{
-        
+        let resp = await axios.get(_url, {
+
             headers: {
                 'Content-Type': 'application/json',
-                "x-api-key":localStorage[TOKEN_NAME]
+                "x-api-key": localStorage[TOKEN_NAME]
             }
         })
         return resp;
@@ -19,7 +19,9 @@ export const doApiGet = async (_url) => {
         throw err;
     }
 }
-export const doApiMethodSignUpLogin = async (_url,_method, _body) => {
+
+
+export const doApiMethodSignUpLogin = async (_url, _method, _body) => {
     try {
 
         let resp = await axios({
@@ -38,20 +40,27 @@ export const doApiMethodSignUpLogin = async (_url,_method, _body) => {
 
 
 // For Post,delete, put, patch
-export const doApiMethod = async(_url,_method,_body = {}) => {
-    try{
-      console.log(_body)
-      let resp = await axios({
-        url:_url,
-        method:_method,
-        data:_body,
-        headers:{
-          "x-api-key":localStorage[TOKEN_NAME]
-        }
-      })
-      return resp;
+export const doApiMethod = async (_url, _method, _body = {}) => {
+    try {
+        console.log(_body)
+        let resp = await axios({
+            url: _url,
+            method: _method,
+            data: _body,
+            headers: {
+                "x-api-key": localStorage[TOKEN_NAME]
+            }
+        })
+        return resp;
     }
-    catch(err){
-      throw err;
+    catch (err) {
+        throw err;
     }
-  }
+}
+
+
+export const checkUserAdmin = async () => {
+    let url = API_URL + "/users/checkToken"
+    let resp = await doApiGet(url);
+    return resp.data.role === "admin"
+}

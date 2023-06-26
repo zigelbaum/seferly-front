@@ -1,6 +1,6 @@
 import React,{ useState , useEffect }  from 'react'
 import { API_URL, doApiGet } from '../../../services/service';
-// import CheckAdminComp from '../checkAdminComp'
+import CheckAdminComp from '../checkAdminComp'
 import UserItem from './userItem';
 
 export default function UsersList() {
@@ -27,7 +27,7 @@ export default function UsersList() {
 
   return (
     <div className='container'>
-      {/* <CheckAdminComp /> */}
+      <CheckAdminComp />
       <h1>List of users in systems</h1>
       <table className='table table-striped table-hover'>
         <thead>
