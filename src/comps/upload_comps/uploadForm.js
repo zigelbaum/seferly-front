@@ -19,7 +19,7 @@ export default function NewUserForm() {
 
     const bookRef = useRef();
     // const cityRef = register("city", { required: true });
-    const priceRef = register("price", { required: true, max: 1000 })
+    const priceRef = register("price", { required:true,max: 1000 })
     const infoRef = register("info", { maxLength: 400 });
 
     useEffect(() => {
@@ -62,7 +62,7 @@ export default function NewUserForm() {
               
                 <label>Price:</label>
                 <input {...priceRef} type="number" className='form-control m-2'></input>
-                {errors.price && <div className='text-danger'>*Maximum price is 1000</div>}
+                {errors.price && <div className='text-danger'>*Field required! (Maximum price is 1000)</div>}
                 <InputImage setImageSelected={setImageSelected}/>
 
                 <label>Additional info:</label>
