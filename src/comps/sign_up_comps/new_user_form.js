@@ -1,7 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useForm } from "react-hook-form";
 import {useNavigate } from 'react-router-dom';
 import {API_URL,doApiGet,doApiMethodSignUpLogin} from '../../services/service'
+import { getCities } from '../../services/helpers';
+import SelectCity from '../inputComps/selectCity';
+
+
 export default function NewUserForm() {
 
   const [isSubmitted,setIsSubmitted]=useState(false);
@@ -12,7 +16,12 @@ export default function NewUserForm() {
   const lastNameRef = register("fullName[lastName]", { required: true, minLength: 2, maxLength: 50 });
    const phoneRef = register("phone", { required: true, pattern: /[0-9]{9,10}|/ });
   const emailRef = register("email", { required: true, pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i })
-  const cityRef = register("city", { required: true });
+
+  const cityRef=useRef();
+  // const cityRef = register("city", { required: true });
+  const [cities, setCities] = useState([]);
+  const [selectedCity, setSelectedCity] = useState("");
+  
   // const passwordRef = register("password", { required: true, pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,8}$/ });
   const passwordRef = register("password", { required: true });
   const password2Ref = register("password2", {
@@ -22,14 +31,25 @@ export default function NewUserForm() {
     }
   })
 
-  const onSub = (dataBody) => {
-    delete dataBody.password2;
+  const onSub = (_dataBody) => {
+    delete _dataBody.password2;
     setIsSubmitted(true);
-    console.log(dataBody);
-    //TODO: send new user to the server
-   doApi(dataBody)
+    _dataBody.city=selectedCity
+    console.log(_dataBody);
+   doApi(_dataBody)
     //redirect to login
   }
+  useEffect(() => {
+    console.log("getting cities")
+    getAllCities("israel")
+}, [])
+
+  const getAllCities = async (_country) => {
+    let data = await getCities(_country);
+    setCities(data);
+    setSelectedCity(data[0])
+
+};
 
   const doApi = async (_dataBody) => {
     try {
@@ -38,6 +58,7 @@ export default function NewUserForm() {
         console.log(data);
         if (data.email) {
           nav(`/messages/?s=${data.email}`)
+  
         }
     } catch (err) {
         alert(err.response.data.msg || err.response.data[0].message)
@@ -63,11 +84,12 @@ export default function NewUserForm() {
         <input {...phoneRef} type="phone" className='form-control m-2' placeholder="Phone" />
         {errors.phone && <div className='text-danger'>* Enter a valid phone number, area code required</div>}
 
-        <select {...cityRef} className='form-select m-2'>
+        {/* <select {...cityRef} className='form-select m-2'>
           <option value="">Select your city...</option>
           <option>...</option>
-        </select>
-        {/* TODO: get list of citys */}
+        </select> */}
+                 {cities && <SelectCity cityRef={cityRef} cities={cities} setSelectedCity={setSelectedCity} selectedCity={selectedCity} register={register} />}
+
         {errors.city && <div className='text-danger'>* You must select a city</div>}
 
         <input {...passwordRef} type="text" className='form-control m-2' placeholder="Password" />

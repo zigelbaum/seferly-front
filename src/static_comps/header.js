@@ -32,6 +32,9 @@ export default function Header() {
                 <Link to="/uploadsList">uploadsList</Link>
               </li>
               <li>
+                <Link to="/uploadForm">upload form</Link>
+              </li>
+              <li>
                 <Link to="/booksList">booksList</Link>
               </li>
             </ul>

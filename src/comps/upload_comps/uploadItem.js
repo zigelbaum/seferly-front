@@ -34,7 +34,7 @@ export default function UploadItem(props) {
                     <div>author: {item.bookId.author_name}</div>
                     <div>name: {item.bookId.name}</div>
                     <div>type: {item.bookId.type}</div>
-                    <div>subject: {item.bookId.subjectId.name}</div>
+                    <div>subject: {item.bookId.subjectId}</div>
                     </div>
                     <div><strong>contact info:</strong>
                         <div> Name: {item.user_id.fullName.firstName} {item.user_id.fullName.lastName}</div>
