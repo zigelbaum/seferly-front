@@ -1,7 +1,7 @@
 import './App.css';
 // import NewUserTestApp from './TestApps/NewUserTestApp';
 import { BrowserRouter, Route, Routes, Link} from 'react-router-dom';
-// import Home from './comps/home'
+import Home from './comps/general_comps/home'
 import LoginForm from './comps/login_comps/login_form';
 import Sign_up_Message from './comps/messages_comps/sign_up_message';
 import Login_message from './comps/messages_comps/login_message';
@@ -11,6 +11,7 @@ import UploadsList from './comps/upload_comps/uploadsList';
 import BooksList from './comps/books_comps/booksList';
 import Header from './static_comps/header';
 import Footer from './static_comps/footer';
+import NotFound from './comps/general_comps/notFound';
 
 
 function App() {
@@ -19,7 +20,7 @@ function App() {
      <Header />
     
       <Routes>
-        {/* <Route index element={<Home />} /> */}
+        <Route index element={<Home />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/signUp" element={<NewUserForm />} />
         <Route path="/messages/" element={<Sign_up_Message/>} />
@@ -27,7 +28,7 @@ function App() {
         <Route path="/usersList" element={<UsersList />} />
         <Route path="/uploadsList" element={<UploadsList />} />
         <Route path="/booksList" element={<BooksList />} />
-        <Route path="/*" element={<div><h2>page not found, 404!</h2></div>} />
+        <Route path='*' element={<NotFound />} />
       </Routes>
     <Footer />
 

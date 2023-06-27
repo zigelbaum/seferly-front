@@ -46,7 +46,8 @@ export default function NewUserForm() {
 
 
   return (
-    <div className='container col-md-6'>
+    
+    <div className='container col-md-6 my-4 '>
       <h2 >New user form</h2>
       <form onSubmit={handleSubmit(onSub)} >
         <input {...firstNameRef} type="text" className='form-control m-2' placeholder="First Name" />

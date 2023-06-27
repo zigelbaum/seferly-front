@@ -33,7 +33,7 @@ export default function LoginForm() {
 
 
   return (
-    <div className='container col-md-6'>
+    <div className='container col-md-6 my-3'>
       <h2 >Login form</h2>
       <form onSubmit={handleSubmit(onSub)} >
         <input {...emailRef} type="email" className='form-control m-2' placeholder="Email" />
