@@ -13,7 +13,7 @@ export default function UploadItem(props) {
     return (
         <div>
             <div className='col-md-6 border' onClick={handleShow}>
-                <img src={item.img_url} className="w-25 float-start me-2" />
+                <img src={item.img_url} className="w-25 float-start me-2" alt="book pic" />
                 <h2>{item.bookId.name}</h2>
                 <div>Price: {item.price}</div>
             </div>
@@ -22,7 +22,7 @@ export default function UploadItem(props) {
                     <Modal.Title>{item.bookId.name}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <div> <strong>uplaod info:</strong>
+                    <div> <strong>upload info:</strong>
                     <div>picture: {item.img_url}</div>
                     <div>Info: {item.info}</div>
                     <div>Date created: {datePublished}</div>
