@@ -1,0 +1,22 @@
+/* for global css */
+.client-header a {
+    color: black;
+    text-decoration: none;
+    margin-left: 16px;
+}
+
+
+.client-header a:hover {
+    color: orange;
+}
+
+.footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.container {
+    max-width: 1050px;
+}
