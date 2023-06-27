@@ -30,7 +30,7 @@ function App() {
         <Route path="/booksList" element={<BooksList />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
-    <Footer />
+    {/* <Footer /> */}
 
     </BrowserRouter>
 

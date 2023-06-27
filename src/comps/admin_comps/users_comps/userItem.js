@@ -4,7 +4,6 @@ import { API_URL, doApiMethod } from '../../../services/service';
 export default function UserItem(props) {
   let item = props.item;
 
-  // משנה תפקיד של משתמש
   const onRoleClick = async () => {
     let bodyData;
     if (item.role == "user") {
@@ -28,6 +27,24 @@ export default function UserItem(props) {
     }
   }
 
+
+  const onDelClick = async () => {
+
+    let url = API_URL + "/users/" + item._id;
+    console.log(url);
+    try {
+      let resp = await doApiMethod(url, "DELETE")
+      console.log(resp)
+      if (resp.data) {
+        props.doApi()
+      }
+    }
+    catch (err) {
+      console.log(err.response);
+      alert("There problem deleteUser - userItem");
+    }
+  }
+
   return (
     <tr>
       <td>{props.index + 1}</td>
@@ -42,7 +59,7 @@ export default function UserItem(props) {
       <td>{item.phone}</td>
       <td>{String(item.active)}</td>
       <td>
-        <button className='badge bg-danger'>Del</button>
+        <button className='badge bg-danger' onClick={onDelClick}>Del</button>
       </td>
     </tr>
   )
