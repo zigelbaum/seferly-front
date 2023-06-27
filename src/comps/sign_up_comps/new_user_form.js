@@ -13,7 +13,8 @@ export default function NewUserForm() {
    const phoneRef = register("phone", { required: true, pattern: /[0-9]{9,10}|/ });
   const emailRef = register("email", { required: true, pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i })
   const cityRef = register("city", { required: true });
-  const passwordRef = register("password", { required: true, pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,8}$/ });
+  // const passwordRef = register("password", { required: true, pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,8}$/ });
+  const passwordRef = register("password", { required: true });
   const password2Ref = register("password2", {
     required: true, validate: (val) => {
       //checks that the values in password and the password confirmation are the same

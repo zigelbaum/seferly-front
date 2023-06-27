@@ -29,7 +29,8 @@ export const doApiMethodSignUpLogin = async (_url, _method, _body) => {
             url: _url,
             data: JSON.stringify(_body),
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                "x-api-key": localStorage[TOKEN_NAME]
             }
         })
         return resp;
