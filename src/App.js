@@ -10,6 +10,8 @@ import UsersList from './comps/admin_comps/users_comps/usersList';
 import UploadsList from './comps/upload_comps/uploadsList';
 import BooksList from './comps/books_comps/booksList';
 import UploadForm from './comps/upload_comps/uploadForm';
+import NotFound from './comps/general_comps/notFound';
+import Footer from './static_comps/footer'
 
 
 function App() {
