@@ -29,7 +29,7 @@ export default function BookItem(props) {
             <td>{props.index + 1}</td>
             <td>{item.name}</td>
             <td>{item.class}</td>
-            {/* <td>{item.subject}</td> */}
+            <td>{item.subject}</td>
             <td>{item.supervision}</td>
             <td>{item.type}</td>
             <td>{item.author_name}</td>
