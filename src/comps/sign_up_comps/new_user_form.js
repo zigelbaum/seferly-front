@@ -56,7 +56,7 @@ export default function NewUserForm() {
         const url = API_URL + '/users';
         const { data } = await doApiMethodSignUpLogin(url,"POST",_dataBody);
         console.log(data);
-        if (data.email) {
+        if (data.email){
           nav(`/messages/?s=${data.email}`)
   
         }
