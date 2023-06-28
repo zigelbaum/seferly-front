@@ -1,9 +1,8 @@
 import React from 'react'
 
+const SelectSubject = (props) => {
 
-const SelectCity = (props) => {
-
-    const cities = props.cities
+    const subjects = props.subjects
     const ref = props.cityRef
     const setSelectedCity = props.setSelectedCity
     const errors=props.errors
@@ -13,7 +12,7 @@ const SelectCity = (props) => {
         <div>
             <select ref={ref}  {...register('city',{required:true})} className='form-select m-2' onChange={() => { setSelectedCity(ref) }}>
                 <option value="">Select a city from the list...</option>
-                {cities?.map((city, i) => (
+                {subjects?.map((city, i) => (
                         <option value={city} key={i + 1} className="capitalize">
                             {city}
                         </option>
@@ -26,4 +25,4 @@ const SelectCity = (props) => {
     )
 }
 
-export default SelectCity;
+export default SelectSubject;

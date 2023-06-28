@@ -42,7 +42,7 @@ export default function BooksList() {
 
   return (
     <div className='container'>
-      <h1>List of study books</h1>
+      <h1 className='text-end'>רשימת ספרי לימוד</h1>
       <table className='table table-striped table-hover text-end'>
         <thead>
           <tr>
