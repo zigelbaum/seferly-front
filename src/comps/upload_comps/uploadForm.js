@@ -56,7 +56,7 @@ export default function NewUserForm() {
 
     return (
         <div className='container col-md-6'>
-            <h2 >New upload form</h2>
+            <h2>Post a Book for Sale</h2>
             <form onSubmit={handleSubmit(onSub)}>
 
                 {books && <SelectBook bookRef={bookRef} books={books} errors={errors} setSelectedBook={setSelectedBook}  register={register} />}
