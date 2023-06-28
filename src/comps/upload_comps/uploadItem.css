@@ -44,3 +44,38 @@ img:hover+.eyeBTN {
         width: 370px;
     }
 }
+
+.imgBookInfo {
+    height: 230px;
+    width:100%;
+    justify-content: center;
+    margin: 0 auto;
+    object-fit: cover
+}
+
+.hr {
+    width: 54px;
+    border: 0.5px solid #A7A7A7;
+    transform: rotate(90deg);
+}
+
+
+@media (max-width:991px) {
+    .imgBookInfo {
+        width: 220px;
+    }
+    .hr {
+        width: 30px;
+    }
+}
+
+@media (max-width:768px) {
+    .imgBookInfo {
+        width: 100%;
+        height: 300px;
+    }
+
+    .hr {
+        width: 30px;
+    }
+}
