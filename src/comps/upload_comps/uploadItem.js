@@ -1,10 +1,11 @@
-import React, { useState} from 'react'
+import React, { useState, useEffect } from 'react'
 import { Modal } from 'react-bootstrap';
 
 import { Avatar, Button, IconButton, Popover } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Event, FmdGood, Sell } from '@mui/icons-material';
+import DateObject from "react-date-object";
 import "./uploadItem.css";
 
 export default function UploadItem(props) {
@@ -12,7 +13,7 @@ export default function UploadItem(props) {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    const [datePublished, setDatePublished] = useState(Date(item.date_created));
+    const [datePublished, setDatePublished] = useState(null);
     const [isHovered, setIsHovered] = useState(false);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
@@ -20,6 +21,16 @@ export default function UploadItem(props) {
     const isFieldEmpty = (_field) => {
         return _field == "" || _field == undefined || _field == null;
     }
+    useEffect(() => {
+
+        const date = new Date(item.date_created)
+        // Create options object with date formatting
+        const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
+
+        // Format the date as per the options
+        const formattedDate = date.toLocaleDateString(undefined, options);
+        setDatePublished(formattedDate)
+    }, [])
 
     return (
         <div className="mainDiv p-0">
