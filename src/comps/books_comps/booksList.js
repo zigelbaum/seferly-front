@@ -46,7 +46,6 @@ export default function BooksList() {
       <table className='table table-striped table-hover text-end'>
         <thead>
           <tr>
-            <th></th>
             <th>מוציא לאור</th>
             <th>סופר</th>
             <th>סוג</th>
@@ -54,6 +53,7 @@ export default function BooksList() {
             <th>מקצוע</th>
             <th>כיתה</th>
             <th>שם</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>

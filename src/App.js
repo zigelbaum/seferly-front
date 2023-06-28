@@ -12,32 +12,14 @@ import BooksList from './comps/books_comps/booksList';
 import UploadForm from './comps/upload_comps/uploadForm';
 import NotFound from './comps/general_comps/notFound';
 import Footer from './static_comps/footer'
+import Header from './static_comps/header';
 
 
 function App() {
   return (
     <BrowserRouter>
 
-      <header>
-        {/* <Link to="/" >home</Link> */}
-        <hr/>
-        <Link to="/login">login</Link>
-        <hr/>
-        <Link to="/signUp">signUp</Link>
-        <hr/>
-        <Link to="/messages">sign up message</Link>
-        <hr/>
-        <Link to="/messages/:token">log in message</Link>
-        <hr/>
-        <Link to="/usersList">usersList</Link>
-        <hr/>
-        <Link to="/uploadsList">uploadsList</Link>
-        <hr/>
-        <Link to="/uploadForm">upload form</Link>
-        <hr/>
-        <Link to="/booksList">booksList</Link>
-
-      </header>
+      <Header />
 
       <Routes>
         <Route index element={<Home />} />
