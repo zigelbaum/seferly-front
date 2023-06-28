@@ -49,7 +49,7 @@ export default function LoginForm() {
 
         <Button
             onClick={handleSubmit(onSub)}
-            className='btn btn-primary mt-3 d-flex justify-content-center'>
+            className='btn mt-3 d-flex justify-content-center'>
             Log In
           </Button>
           <div style={{ marginTop: "14px", marginBottom: "6px" }} className='d-flex justify-content-center'>
