@@ -56,7 +56,7 @@ export default function LoginForm() {
             <p className='s14 ' style={{ marginBottom: 0 }}>Don’t have an account?</p>
             <Link to="/signUp" style={{ textDecoration: "none" }}><p style={{ marginLeft: "6px", marginBottom: 0 }} className='purple s14'>sign up now!</p></Link>
           </div>
-        {/* <p><Link to="/signUp">Create an account</Link></p> */}
+
       </form >
     </div >
   )
