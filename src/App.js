@@ -13,9 +13,6 @@ import Header from './static_comps/header';
 import Footer from './static_comps/footer';
 import NotFound from './comps/general_comps/notFound';
 import UploadForm from './comps/upload_comps/uploadForm';
-import NotFound from './comps/general_comps/notFound';
-import Footer from './static_comps/footer'
-import Header from './static_comps/header';
 
 
 function App() {
