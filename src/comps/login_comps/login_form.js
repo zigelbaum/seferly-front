@@ -27,14 +27,14 @@ export default function LoginForm() {
         const { data } = await doApiMethodSignUpLogin(url,"POST",_dataBody);
         console.log(data);
         if (data.token) {
-          nav(`/messages/${data.token}`)
+          // nav(`/messages/${data.token}`)
+          nav('/uploadsList')
         }
     } catch (err) {
         alert(err.response.data.msg || err.response.data[0].message)
         setIsSubmitted(false);
     }
 }
-
 
   return (
     <div className='container col-md-6 my-3 text-center'>
