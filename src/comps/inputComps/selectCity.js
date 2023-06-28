@@ -7,10 +7,12 @@ const SelectCity = (props) => {
     const cities = props.cities
     const ref = props.cityRef
     const setSelectedCity = props.setSelectedCity
+    const errors=props.errors
+    const register=props.register
 
     return (
         <div>
-            <select ref={ref} className='form-select m-2' onChange={() => { setSelectedCity(ref.current.value) }}>
+            <select ref={ref}  {...register('city',{required:true})} className='form-select m-2' onChange={() => { setSelectedCity(ref) }}>
                 <option value="">Select a city from the list...</option>
                 {cities?.map((city, i) => (
                         <option value={city} key={i + 1} className="capitalize">
@@ -19,6 +21,7 @@ const SelectCity = (props) => {
                     ))}
                
             </select>
+            {errors.city && <div className='text-danger'>*Field required, You must select a city!</div>}
         </div >
 
     )

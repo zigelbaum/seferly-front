@@ -18,7 +18,6 @@ export default function NewUserForm() {
   const emailRef = register("email", { required: true, pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i })
 
   const cityRef=useRef();
-  // const cityRef = register("city", { required: true });
   const [cities, setCities] = useState([]);
   const [selectedCity, setSelectedCity] = useState("");
   
@@ -84,13 +83,7 @@ export default function NewUserForm() {
         <input {...phoneRef} type="phone" className='form-control m-2' placeholder="Phone" />
         {errors.phone && <div className='text-danger'>* Enter a valid phone number, area code required</div>}
 
-        {/* <select {...cityRef} className='form-select m-2'>
-          <option value="">Select your city...</option>
-          <option>...</option>
-        </select> */}
-                 {cities && <SelectCity cityRef={cityRef} cities={cities} setSelectedCity={setSelectedCity} selectedCity={selectedCity} register={register} />}
-
-        {errors.city && <div className='text-danger'>* You must select a city</div>}
+        {cities && <SelectCity cityRef={cityRef} cities={cities} setSelectedCity={setSelectedCity} selectedCity={selectedCity} register={register} errors={errors} />}
 
         <input {...passwordRef} type="text" className='form-control m-2' placeholder="Password" />
         {errors.password && <div className='text-danger'>* Enter a valid Password, must contain 8 characters, at least one uppercase letter, one lowercase letter, one number and one special character!</div>}

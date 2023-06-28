@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useForm } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
-import { API_URL, doApiGet, doApiMethod, doApiMethodSignUpLogin } from '../../services/service'
-import { getCities, getBooks } from '../../services/helpers';
+import { API_URL, doApiGet, doApiMethod } from '../../services/service'
+import { getBooks } from '../../services/helpers';
 import InputImage from '../inputComps/inputImage';
 import { uploadImage } from '../../services/helpers';
 import SelectBook from '../inputComps/selectBook';
@@ -14,12 +14,13 @@ export default function NewUserForm() {
     const nav = useNavigate();
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [selectedBook, setSelectedBook] = useState("");
+    const [isBookSelected, setIsBookSelected] = useState(false);
     const [books, setBooks] = useState([]);
     const [imageSelected, setImageSelected] = useState(null);
 
-    const bookRef = useRef();
-    // const cityRef = register("city", { required: true });
-    const priceRef = register("price", { required:true,max: 1000 })
+     const bookRef =useRef(null);
+   
+    const priceRef = register("price", { required: true, max: 1000 })
     const infoRef = register("info", { maxLength: 400 });
 
     useEffect(() => {
@@ -31,11 +32,11 @@ export default function NewUserForm() {
         setBooks(data);
     }
 
-     const onSub = (_dataBody) => {
+    const onSub = (_dataBody) => {
         _dataBody.bookId = selectedBook;
         console.log(_dataBody);
         setIsSubmitted(true);
-         doApi(_dataBody);
+        doApi(_dataBody);
 
     }
 
@@ -58,17 +59,18 @@ export default function NewUserForm() {
             <h2 >New upload form</h2>
             <form onSubmit={handleSubmit(onSub)}>
 
-                {books && <SelectBook bookRef={bookRef} books={books} setSelectedBook={setSelectedBook} selectedBook={selectedBook} register={register} />}
-              
+                {books && <SelectBook bookRef={bookRef} books={books} errors={errors} setSelectedBook={setSelectedBook}  register={register} />}
+                
                 <label>Price:</label>
                 <input {...priceRef} type="number" className='form-control m-2'></input>
                 {errors.price && <div className='text-danger'>*Field required! (Maximum price is 1000)</div>}
-                <InputImage setImageSelected={setImageSelected}/>
+               
+                <InputImage setImageSelected={setImageSelected} />
 
                 <label>Additional info:</label>
                 <textarea {...infoRef} type="text" className='form-control m-2' rows="5" placeholder='...'></textarea>
                 {errors.info && <div className='text-danger'>*The paragraph entered may not exceed 400 characters!</div>}
-               
+
                 <button className='btn btn-primary mt-3'>Save</button>
             </form>
         </div >

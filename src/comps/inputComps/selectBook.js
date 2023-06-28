@@ -5,20 +5,24 @@ import { useRef } from 'react'
 const SelectBook = (props) => {
 
     const books = props.books
-    const ref = props.bookRef
-    const setSelectedBook = props.setSelectedBook
+    const errors=props.errors
+    const bookRef = props.bookRef
+    const register=props.register
+    const setSelectedBook = props.setSelectedBook;
 
     return (
         <div>
-            <select ref={ref} className='form-select m-2' onChange={() => { setSelectedBook(ref.current.value) }}>
+            <select ref={bookRef} {...register('book',{required:true})} className='form-select m-2' onChange={() => {
+                setSelectedBook(bookRef);
+            }}>
                 <option value="">Select a book from the list...</option>
                 {
-                    books.map(book => 
+                    books.map(book =>
                         <option value={book._id} key={book._id}>{book.name}</option>
                     )
                 };
-               
             </select>
+            {errors.book && <div className='text-danger'>*Field required!</div>}
         </div >
 
     )
