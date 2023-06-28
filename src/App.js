@@ -9,6 +9,9 @@ import NewUserForm from './comps/sign_up_comps/new_user_form';
 import UsersList from './comps/admin_comps/users_comps/usersList';
 import UploadsList from './comps/upload_comps/uploadsList';
 import BooksList from './comps/books_comps/booksList';
+import Header from './static_comps/header';
+import Footer from './static_comps/footer';
+import NotFound from './comps/general_comps/notFound';
 import UploadForm from './comps/upload_comps/uploadForm';
 import NotFound from './comps/general_comps/notFound';
 import Footer from './static_comps/footer'
