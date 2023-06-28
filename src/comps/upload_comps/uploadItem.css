@@ -1,0 +1,46 @@
+.mainDiv {
+    min-height: 306px;
+    width: 306px;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.16);
+    background-color: rgba(255, 255, 255, 1);
+    border-radius: 9.0524px;
+    margin-bottom: 32px;
+    margin-right: 10px;
+    margin-left: 10px;
+
+}
+
+.imgBook {
+    border-radius: 9.0524px 9.0524px 0px 0px;
+    height: 200px;
+    cursor: pointer;
+    object-fit: cover
+}
+
+
+.lightDiv {
+    opacity: 60%;
+    border-radius: 9.0524px 9.0524px 0px 0px;
+}
+
+img:hover+.eyeBTN {
+    display: flex;
+    color: black;
+}
+
+.eyeBTN:hover {
+    display: flex;
+    color: black;
+}
+
+@media (max-width:768px) {
+    .img {
+        height: 250px;
+    }
+}
+
+@media (max-width:768px) {
+    .mainDiv {
+        width: 370px;
+    }
+}
