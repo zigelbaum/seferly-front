@@ -5,18 +5,28 @@ import { doApiGet, API_URL } from './service'
 
 export const getCities = async (_country) => {
     const { data } = await axios.post(
-       "https://countriesnow.space/api/v0.1/countries/cities",
-       { "country": _country });
-       console.log("in get cities")
-       console.log(data.data)
+        "https://countriesnow.space/api/v0.1/countries/cities",
+        { "country": _country });
+    console.log("in get cities")
+    console.log(data.data)
     return data.data;
 
- }
+}
 
- //Not Getting all of the books!!!!
+//Not Getting all of the books!!!!
 export const getBooks = async () => {
     const { data } = await doApiGet(API_URL + "/books/booksList")
     return data;
+}
+
+export const getSubjects = async () => {
+    try {
+        const { data } = await doApiGet(API_URL + "/subjects/subjectsList")
+        console.log(data);
+        return data;
+    } catch (err) {
+        throw (err);
+    }
 }
 
 export const uploadImage = async (file) => {

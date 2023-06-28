@@ -3,23 +3,20 @@ import React from 'react'
 const SelectSubject = (props) => {
 
     const subjects = props.subjects
-    const ref = props.cityRef
-    const setSelectedCity = props.setSelectedCity
-    const errors=props.errors
-    const register=props.register
+    const ref = props.subjectRef
+    const register = props.register
+    const setSelectedSubject = props.setSelectedSubject
 
     return (
         <div>
-            <select ref={ref}  {...register('city',{required:true})} className='form-select m-2' onChange={() => { setSelectedCity(ref) }}>
-                <option value="">Select a city from the list...</option>
-                {subjects?.map((city, i) => (
-                        <option value={city} key={i + 1} className="capitalize">
-                            {city}
-                        </option>
-                    ))}
-               
+            <select ref={ref}  {...register('subject', { required: true })} className='form-select m-2' onChange={() => { setSelectedSubject(ref) }}>
+                <option className='text-end' value="">מקצוע</option>
+                {subjects.map((subject) => (
+                    <option value={subject.name} key={subject.name} className="capitalize text-end">
+                        {subject.name}
+                    </option>
+                ))}
             </select>
-            {errors.city && <div className='text-danger'>*Field required, You must select a city!</div>}
         </div >
 
     )
