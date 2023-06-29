@@ -29,7 +29,9 @@ export default function Header() {
               <div className='d-none d-md-flex'>
                 <Link to="/booksList">booksList</Link>
               </div>
-          
+              <div className='d-none d-md-flex'>
+                <Link to="/logout">Logout</Link>
+              </div>
               <div className="d-flex justify-content-md-end">
                 <Link to="/login">
                   <svg xmlns="http://www.w3.org/2000/svg" height="25px" viewBox="0 0 448 512" className='d-flex  justify-content-md-end'>
