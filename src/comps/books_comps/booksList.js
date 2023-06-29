@@ -36,6 +36,7 @@ export default function BooksList() {
   }
 
   const getAdmin = async () => {
+    console.log(checkUserAdmin());
     setIsAdmin(await checkUserAdmin());
   }
 

@@ -1,11 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useContext } from 'react'
 import { useForm } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
-import { API_URL, doApiGet, doApiMethod } from '../../services/service'
+import { API_URL, checkLogedIn, doApiMethod } from '../../services/service'
 import { getBooks } from '../../services/helpers';
 import InputImage from '../inputComps/inputImage';
 import { uploadImage } from '../../services/helpers';
 import SelectBook from '../inputComps/selectBook';
+import { UserContext } from '../../App'; 
+
 
 export default function NewUserForm() {
 
@@ -17,20 +19,26 @@ export default function NewUserForm() {
     const [isBookSelected, setIsBookSelected] = useState(false);
     const [books, setBooks] = useState([]);
     const [imageSelected, setImageSelected] = useState(null);
+    const [isLogedIn, setLogedIn] = useContext(UserContext);
 
-     const bookRef =useRef(null);
-   
+    const bookRef = useRef(null);
+
     const priceRef = register("price", { required: true, max: 1000 })
     const infoRef = register("info", { maxLength: 400 });
 
     useEffect(() => {
-        getAllBooks()
+        console.log(isLogedIn);
+            getAllBooks()
     }, [])
 
     const getAllBooks = async () => {
         let data = await getBooks();
         setBooks(data);
     }
+
+    // const getLogedIn = async () => {
+    //     setLogedIn(await checkLogedIn());
+    // }
 
     const onSub = (_dataBody) => {
         _dataBody.bookId = selectedBook;
@@ -59,12 +67,12 @@ export default function NewUserForm() {
             <h2>Post a Book for Sale</h2>
             <form onSubmit={handleSubmit(onSub)}>
 
-                {books && <SelectBook bookRef={bookRef} books={books} errors={errors} setSelectedBook={setSelectedBook}  register={register} />}
-                
+                {books && <SelectBook bookRef={bookRef} books={books} errors={errors} setSelectedBook={setSelectedBook} register={register} />}
+
                 <label>Price:</label>
                 <input {...priceRef} type="number" className='form-control m-2'></input>
                 {errors.price && <div className='text-danger'>*Field required! (Maximum price is 1000)</div>}
-               
+
                 <InputImage setImageSelected={setImageSelected} />
 
                 <label>Additional info:</label>

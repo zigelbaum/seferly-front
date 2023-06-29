@@ -65,3 +65,8 @@ export const checkUserAdmin = async () => {
     let resp = await doApiGet(url);
     return resp.data.role === "admin"
 }
+
+
+export const checkLogedIn = async () => {
+    return localStorage.getItem(TOKEN_NAME) != null
+}

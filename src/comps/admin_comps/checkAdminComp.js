@@ -18,9 +18,14 @@ export default function CheckAdminComp() {
     try{
       let url = API_URL+"/users/checkToken"
       let resp = await doApiGet(url);
+      console.log(resp.response.status);
+      if(resp.status == 401){
+        alert("you are not loged in");
+        nav("/login")
+      }
       if(resp.data.role != "admin"){
         alert("You must be admin to be here ,try log in again");
-        nav("/admin")
+        nav("/")
       }
     }
     catch(err){
