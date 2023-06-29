@@ -3,16 +3,14 @@ import React from 'react'
 
 const SelectBook = (props) => {
 
+    const setSelectedBook = props.setSelectedBook
     const books = props.books
-    const errors=props.errors
-    const bookRef = props.bookRef
-    const register=props.register
-    const setSelectedBook = props.setSelectedBook;
-
+    const Ref = props.bookRef
+   
     return (
         <div>
-            <select ref={bookRef} {...register('book',{required:true})} className='form-select m-2' onChange={() => {
-                setSelectedBook(bookRef);
+            <select ref={Ref}  className='form-select m-2' onChange={() => {
+                setSelectedBook(Ref.current.value);
             }}>
                 <option value="">Select a book from the list...</option>
                 {
@@ -21,7 +19,7 @@ const SelectBook = (props) => {
                     )
                 };
             </select>
-            {errors.book && <div className='text-danger'>*Field required!</div>}
+            {/* {errors && <div className='text-danger'>*Field required!</div>} */}
         </div >
 
     )

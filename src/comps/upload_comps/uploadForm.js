@@ -19,20 +19,21 @@ export default function NewUserForm() {
     const [isBookSelected, setIsBookSelected] = useState(false);
     const [books, setBooks] = useState([]);
     const [imageSelected, setImageSelected] = useState(null);
-    const {isLogedIn, setLogedIn} = useContext(UserContext);
+    const { isLogedIn, setLogedIn } = useContext(UserContext);
 
-    const bookRef = useRef(null);
+
+    const bookRef = useRef();
 
     const priceRef = register("price", { required: true, max: 1000 })
     const infoRef = register("info", { maxLength: 400 });
 
     useEffect(() => {
-        if(!isLogedIn){
+        if (!isLogedIn) {
             nav("/*/you must be logged in!")
         }
-       else{
-        getAllBooks();
-       }
+        else {
+            getAllBooks();
+        }
     }, [])
 
     const getAllBooks = async () => {
@@ -68,8 +69,7 @@ export default function NewUserForm() {
             <h2>Post a Book for Sale</h2>
             <form onSubmit={handleSubmit(onSub)}>
 
-                {books && <SelectBook bookRef={bookRef} books={books} errors={errors} setSelectedBook={setSelectedBook} register={register} />}
-
+                {books && <SelectBook register={register} setSelectedBook={setSelectedBook} books={books} bookRef={bookRef} />}
                 <label>Price:</label>
                 <input {...priceRef} type="number" className='form-control m-2'></input>
                 {errors.price && <div className='text-danger'>*Field required! (Maximum price is 1000)</div>}
