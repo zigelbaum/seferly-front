@@ -1,33 +1,41 @@
-import React,{ useState , useEffect }  from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { API_URL, doApiGet } from '../../../services/service';
 import CheckAdminComp from '../checkAdminComp'
 import UserItem from './userItem';
+import { UserContext } from '../../../App';
+import { useNavigate } from 'react-router-dom'
 
 export default function UsersList() {
-  const [ar,setAr] = useState([]);
+  const [ar, setAr] = useState([]);
+  const {isLogedIn,setLogedIn}= useContext(UserContext);
+  const nav = useNavigate();
 
   useEffect(() => {
-    doApi();
-  },[])
+    if (!isLogedIn) {
+      nav("/*/you must be logged in!");
+    }
+    else {
+      doApi();
+    }
+  }, [])
 
-  const doApi = async() => {
-    let url = API_URL+"/users/usersList";
-    try{
+  const doApi = async () => {
+    let url = API_URL + "/users/usersList";
+    try {
       let resp = await doApiGet(url);
       console.log(resp.data);
       setAr(resp.data);
     }
-    catch(err){
+    catch (err) {
       console.log(err);
-      alert("there problem doApi - usersList ,try again later")
     }
 
   }
 
 
   return (
-    <div className='container'>
-      <CheckAdminComp />
+    isLogedIn && <div className='container'>
+      <CheckAdminComp/>
       <h1>List of users in systems</h1>
       <table className='table table-striped table-hover'>
         <thead>
@@ -43,9 +51,9 @@ export default function UsersList() {
           </tr>
         </thead>
         <tbody>
-          {ar.map((item,i) => {
-            return(
-              <UserItem key={item._id} doApi={doApi} index={i} item={item}/>
+          {ar.map((item, i) => {
+            return (
+              <UserItem key={item._id} doApi={doApi} index={i} item={item} />
             )
           })}
         </tbody>

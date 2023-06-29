@@ -1,10 +1,12 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 export default function NotFound() {
+  const params=useParams();
   return (
     <div>
-      <h1 className='display-1'>page not found 404!</h1>
+      <h2>page not found 404!</h2>
+      <h4>{params.msg}</h4>
       <Link to="/">Back to home</Link>
     </div>
   )

@@ -13,36 +13,36 @@ import Header from './static_comps/header';
 import Footer from './static_comps/footer';
 import NotFound from './comps/general_comps/notFound';
 import UploadForm from './comps/upload_comps/uploadForm';
-import React, { useState } from 'react';
+import React, { useState,useMemo } from 'react';
 
-export const UserContext = React.createContext(null);
+export const UserContext = React.createContext()
+
 function App() {
 
-  const [islogedIn, setLogedIn] = useState(false);
-
+  const [isLogedIn, setLogedIn] = useState(false);
 
   return (
-    <BrowserRouter>
+    < UserContext.Provider value={{isLogedIn,setLogedIn}} >
+      <BrowserRouter>
 
-      <Header />
+        <Header />
 
-      <Routes>
-        <Route index element={<Home />} />
-        <Route path="/login" element={<LoginForm />} />
-        <Route path="/signUp" element={<NewUserForm />} />
-        <Route path="/messages/" element={<Sign_up_Message />} />
-        <Route path="/messages/:token" element={<Login_message />} />
-        <Route path="/usersList" element={<UsersList />} />
-        <Route path="/uploadsList" element={<UploadsList />} />
-        <Route path="/uploadForm"  >      
-        < UserContext.Provider value={{ islogedIn: islogedIn, setLogedIn: setLogedIn }} ><UploadForm /></UserContext.Provider>
-        </Route>
-        <Route path="/booksList" element={<BooksList />} />
-        <Route path='*' element={<NotFound />} />
-      </Routes>
-      {/* <Footer /> */}
+        <Routes>
+          <Route index element={<Home />} />
+          <Route path="/login" element={<LoginForm />} />
+          <Route path="/signUp" element={<NewUserForm />} />
+          <Route path="/messages/" element={<Sign_up_Message />} />
+          <Route path="/messages/:token" element={<Login_message />} />
+          <Route path="/usersList" element={<UsersList />} />
+          <Route path="/uploadsList" element={<UploadsList />} />
+          <Route path="/uploadForm" element={<UploadForm />}/>
+          <Route path="/booksList" element={<BooksList />} />
+          <Route path='*/:msg' element={<NotFound />} />
+        </Routes>
+        {/* <Footer /> */}
 
-    </BrowserRouter >
+      </BrowserRouter >
+    </UserContext.Provider>
 
   );
 }

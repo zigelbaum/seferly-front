@@ -7,35 +7,29 @@ import { API_URL, doApiGet } from '../../services/service';
 // תתווסף בכל קומפנינטה שהמשתמש חייב להיות
 // אדמין כדי לבצע פעולות בה
 export default function CheckAdminComp() {
-  
+
   let nav = useNavigate();
 
   useEffect(() => {
     doApi();
-  },[])
+  }, [])
 
-  const doApi = async() => {
-    try{
-      let url = API_URL+"/users/checkToken"
+  const doApi = async () => {
+    try {
+      let url = API_URL + "/users/checkToken"
       let resp = await doApiGet(url);
-      console.log(resp.response.status);
-      if(resp.status == 401){
-        alert("you are not loged in");
-        nav("/login")
-      }
-      if(resp.data.role != "admin"){
-        alert("You must be admin to be here ,try log in again");
-        nav("/")
+      if (resp.data.role != "admin") {
+        nav("/*/You must be admin to be here ,try log in again")
       }
     }
-    catch(err){
+    catch (err) {
       alert("There problem ,try log in again");
       nav("/admin")
     }
 
 
   }
-  
+
   return (
     <React.Fragment></React.Fragment>
   )

@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef, useContext } from 'react'
 import { useForm } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
-import { API_URL, checkLogedIn, doApiMethod } from '../../services/service'
+import { API_URL, doApiMethod } from '../../services/service'
 import { getBooks } from '../../services/helpers';
 import InputImage from '../inputComps/inputImage';
 import { uploadImage } from '../../services/helpers';
 import SelectBook from '../inputComps/selectBook';
-import { UserContext } from '../../App'; 
+import { UserContext } from "../../App";
 
 
 export default function NewUserForm() {
@@ -27,8 +27,12 @@ export default function NewUserForm() {
     const infoRef = register("info", { maxLength: 400 });
 
     useEffect(() => {
-        console.log(isLogedIn);
-            getAllBooks()
+        if(!isLogedIn){
+            nav("/*")
+        }
+       else{
+        getAllBooks();
+       }
     }, [])
 
     const getAllBooks = async () => {
@@ -36,9 +40,6 @@ export default function NewUserForm() {
         setBooks(data);
     }
 
-    // const getLogedIn = async () => {
-    //     setLogedIn(await checkLogedIn());
-    // }
 
     const onSub = (_dataBody) => {
         _dataBody.bookId = selectedBook;
@@ -81,6 +82,6 @@ export default function NewUserForm() {
 
                 <button className='btn btn-primary mt-3'>Save</button>
             </form>
-        </div >
+        </div>
     )
 }
