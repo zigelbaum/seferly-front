@@ -46,6 +46,7 @@ export default function BooksList() {
       <table className='table table-striped table-hover text-end'>
         <thead>
           <tr>
+            {isAdmin && <th></th>}
             <th>מוציא לאור</th>
             <th>סופר</th>
             <th>סוג</th>
