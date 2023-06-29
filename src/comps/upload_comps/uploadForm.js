@@ -19,7 +19,7 @@ export default function NewUserForm() {
     const [isBookSelected, setIsBookSelected] = useState(false);
     const [books, setBooks] = useState([]);
     const [imageSelected, setImageSelected] = useState(null);
-    const [isLogedIn, setLogedIn] = useContext(UserContext);
+    const {isLogedIn, setLogedIn} = useContext(UserContext);
 
     const bookRef = useRef(null);
 
