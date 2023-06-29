@@ -28,7 +28,7 @@ export default function NewUserForm() {
 
     useEffect(() => {
         if(!isLogedIn){
-            nav("/*")
+            nav("/*/you must be logged in!")
         }
        else{
         getAllBooks();
