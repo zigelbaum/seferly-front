@@ -83,7 +83,7 @@ export default function NewUserForm() {
         <input {...phoneRef} type="phone" className='form-control m-2' placeholder="Phone" />
         {errors.phone && <div className='text-danger'>* Enter a valid phone number, area code required</div>}
 
-        {cities && <SelectCity cityRef={cityRef} cities={cities} setSelectedCity={setSelectedCity} selectedCity={selectedCity} register={register} errors={errors} />}
+        {cities && <SelectCity cityRef={cityRef} cities={cities} setSelectedCity={setSelectedCity} selectedCity={selectedCity}  />}
 
         <input {...passwordRef} type="text" className='form-control m-2' placeholder="Password" />
         {errors.password && <div className='text-danger'>* Enter a valid Password, must contain 8 characters, at least one uppercase letter, one lowercase letter, one number and one special character!</div>}
