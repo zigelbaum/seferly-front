@@ -30,6 +30,9 @@ export default function Header() {
                 <Link to="/booksList">booksList</Link>
               </div>
               <div className='d-none d-md-flex'>
+                <Link to="/bookInput">Add a New Book</Link>
+              </div>
+              <div className='d-none d-md-flex'>
                 <Link to="/logout">Logout</Link>
               </div>
               <div className="d-flex justify-content-md-end">

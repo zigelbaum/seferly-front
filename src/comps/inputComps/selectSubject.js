@@ -5,14 +5,15 @@ const SelectSubject = (props) => {
     const subjects = props.subjects
     const ref = props.subjectRef
     const register = props.register
-    const setSelectedSubject = props.setSelectedSubject
+    const setSelectedSub = props.setSelectedSub
 
     return (
         <div>
-            <select ref={ref}  {...register('subject', { required: true })} className='form-select m-2' onChange={() => { setSelectedSubject(ref) }}>
-                <option className='text-end' value="">מקצוע</option>
+            <select ref={ref} className='form-select m-2' onChange={() => {
+                 setSelectedSub(ref.current.value) }}>
+                <option className='text-end' value="">Subject</option>
                 {subjects.map((subject) => (
-                    <option value={subject.name} key={subject.name} className="capitalize text-end">
+                    <option value={subject._id} key={subject._id} className="capitalize text-end">
                         {subject.name}
                     </option>
                 ))}
