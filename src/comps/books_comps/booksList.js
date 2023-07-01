@@ -1,18 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useContext } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom'
 import { API_URL, doApiGet, checkUserAdmin } from '../../services/service';
 import BookItem from './bookItem';
 import PageInation from '../general_comps/pageInation';
+import { UserContext } from '../../App';
 
 export default function BooksList() {
   const [ar, setAr] = useState([]);
-
-  const [isAdmin, setIsAdmin] = useState("false");
-
+  const {isLogedIn,setLogedIn}= useContext(UserContext);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [querys] = useSearchParams();
 
   useEffect(() => {
-    getAdmin();
+    if(isLogedIn){
+      getAdmin();
+    }
+   
   }, [])
 
   useEffect(() => {
