@@ -11,12 +11,6 @@ export default function Header() {
           <div className="logo col-auto">
             <h2><Link to="/"><Logo margin={"mb-5"} /></Link></h2>
           </div>
-               <div className='d-none d-md-flex'>
-                <Link to="/messages">sign up message</Link>
-              </div>
-              <div className='d-none d-md-flex'>
-                <Link to="/messages/:token">log in message</Link>
-              </div>
               <div className='d-none d-md-flex'>
                 <Link to="/usersList">usersList</Link>
               </div>
@@ -28,6 +22,9 @@ export default function Header() {
               </div>
               <div className='d-none d-md-flex'>
                 <Link to="/booksList">booksList</Link>
+              </div>
+              <div className='d-none d-md-flex'>
+                <Link to="/myInfo">My Info</Link>
               </div>
               <div className='d-none d-md-flex'>
                 <Link to="/logout">Logout</Link>

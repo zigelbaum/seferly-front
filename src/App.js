@@ -15,6 +15,7 @@ import NotFound from './comps/general_comps/notFound';
 import UploadForm from './comps/upload_comps/uploadForm';
 import React, { useState,useMemo } from 'react';
 import Logout from './comps/login_comps/logout';
+import MyInfo from './comps/user_comps/myInfo';
 
 export const UserContext = React.createContext()
 
@@ -38,6 +39,7 @@ function App() {
           <Route path="/uploadsList" element={<UploadsList />} />
           <Route path="/uploadForm" element={<UploadForm />}/>
           <Route path="/booksList" element={<BooksList />} />
+          <Route path="/myInfo" element={<MyInfo />} />
           <Route path="/logout" element={<Logout />} />
           <Route path='*/:msg' element={<NotFound />} />
         </Routes>
