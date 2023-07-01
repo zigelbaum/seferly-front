@@ -25,7 +25,7 @@ const SelectGrade = (props) => {
             <select ref={Ref} className='form-select m-2' onChange={() => {
                 setSelectedGrade(Ref.current.value);
             }}>
-                <option value="">Select Grade From List</option>
+                <option  value="">Select Grade From List</option>
                 {hebrewCharacters.map((character, index) => (
                     <option key={index} value={character}>
                         {character}

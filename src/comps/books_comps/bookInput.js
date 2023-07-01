@@ -80,10 +80,10 @@ export default function BookInput() {
                 <input {...supervisionRef} type="text" className='form-control m-2' placeholder="Supervision" />
                 {errors.supervision && <div className='text-danger'>* Enter a valid supervision, must contain 2-50 characters!</div>}
 
-                <input {...nameRef} type="text" className='form-control m-2' placeholder="name" />
+                <input {...nameRef} type="text" className='form-control m-2' placeholder="Name" />
                 {errors.name && <div className='text-danger'>* Enter a valid name, must contain 2-50 characters!</div>}
 
-                <input {...typeRef} type="text" className='form-control m-2' placeholder="type" />
+                <input {...typeRef} type="text" className='form-control m-2' placeholder="Type" />
                 {errors.type && <div className='text-danger'>* Enter a valid type, must contain 2-50 characters!</div>}
 
                 <input {...authorRef} type="text" className='form-control m-2' placeholder="Author name" />

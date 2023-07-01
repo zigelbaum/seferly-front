@@ -11,7 +11,7 @@ const SelectSubject = (props) => {
         <div>
             <select ref={ref} className='form-select m-2' onChange={() => {
                  setSelectedSub(ref.current.value) }}>
-                <option className='text-end' value="">Subject</option>
+                <option  value="">Subject</option>
                 {subjects.map((subject) => (
                     <option value={subject._id} key={subject._id} className="capitalize text-end">
                         {subject.name}
