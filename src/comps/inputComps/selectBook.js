@@ -15,10 +15,7 @@ const SelectBook = (props) => {
                 <option value="">Select a book from the list...</option>
                 {
                     books.map(book =>
-                    //   <option value={book._id} key={book._id}>{book.name}</option>
-                    {
-                        if (book.subjectId != null) { <option value={book._id} key={book._id}>{book.name}</option> }
-                    })
+                        <option value={book._id} key={book._id}>{book.name}</option>)
                 };
             </select>
             {/* {errors && <div className='text-danger'>*Field required!</div>} */}
