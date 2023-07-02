@@ -20,12 +20,13 @@ export default function BooksList() {
 
   useEffect(() => {
     let page = querys.get("page") || 1;
-    doApi(page);
+    let perPage = querys.get("perPage") || 10;
+    doApi(page, perPage);
   }, [querys])
 
 
-  const doApi = async (page) => {
-    let url = API_URL + "/books/booksList?page=" + page;
+  const doApi = async (page, perPage) => {
+    let url = API_URL + "/books/booksList?page=" + page + "&perPage=" + perPage;
     try {
       let resp = await doApiGet(url);
       console.log(resp.data);
