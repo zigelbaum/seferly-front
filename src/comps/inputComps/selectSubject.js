@@ -14,7 +14,7 @@ const SelectSubject = (props) => {
                 <option  value="">Subject</option>
                 {subjects.map((subject) => (
                     <option value={subject._id} key={subject._id} className="capitalize text-end">
-                        {subject.name}
+                        {subject.subject}
                     </option>
                 ))}
             </select>
