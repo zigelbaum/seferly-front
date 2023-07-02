@@ -19,6 +19,7 @@
     "react-date-object": "^2.1.7",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.45.0",
+    "react-infinite-scroll-hook": "^4.1.1",
     "react-redux": "^8.1.1",
     "react-router-dom": "^6.14.0",
     "react-scripts": "5.0.1",
