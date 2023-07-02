@@ -37,6 +37,7 @@ export default function NewUserForm() {
     }, [])
 
     const getAllBooks = async () => {
+        console.log("in get books")
         let data = await getBooks();
         setBooks(data);
     }
