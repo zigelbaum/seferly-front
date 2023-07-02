@@ -14,7 +14,7 @@ export default function BooksList() {
 
   const [subjects, setSubjects] = useState([])
   const [selectedSubject, setSelectedSubject] = useState('');
-  const [filteredBooks, setFilteredBooks] = useState([])
+  const [filteredBooks, setFilteredBooks] = useState(ar)
   const ref = useRef()
 
 
@@ -32,33 +32,32 @@ export default function BooksList() {
   useEffect(() => {
     if (isLogedIn) {
       getAdmin() && getAllSubjects();
-      helper();
     }
 
   }, [])
 
-  useEffect(() => {
-  console.log(filteredBooks)
-    
-  }, [filteredBooks])
-  
+  // useEffect(() => {
+  // console.log(filteredBooks)
+
+  // }, [filteredBooks])
+
   useEffect(() => {
     let page = querys.get("page") || 1;
     let perPage = querys.get("perPage") || 10;
     doApi(page, perPage);
   }, [querys])
 
-const helper=async()=>{
-  setFilteredBooks(ar.filter((book) => {
-    console.log(selectedSubject)
-    if (selectedSubject === "") {
-      return true;
-    }
+  const helper = async () => {
+    setFilteredBooks(ar.filter((book) => {
+      console.log(selectedSubject)
+      if (selectedSubject === "") {
+        return true;
+      }
 
-    return book.subjectId._id === selectedSubject;
-  } ))
+      return book.subjectId._id === selectedSubject;
+    }))
 
-}
+  }
   const doApi = async (page, perPage) => {
     let url = API_URL + "/books/booksList?page=" + page + "&perPage=" + perPage;
     try {
@@ -78,28 +77,34 @@ const helper=async()=>{
     setIsAdmin(await checkUserAdmin());
   }
 
+  const filterBySearch = (event) => {
+    // Access input value
+    const query = event.target.value;
+    if (query === "") {
+      setFilteredBooks(ar)
+    } else {
+      // Create copy of item list
+      var updatedList = [...ar];
+      // Include all elements which includes the search query
+      updatedList = updatedList.filter((item) => {
+        return item.name.toLowerCase().indexOf(query.toLowerCase()) !== -1;
+      }
+      );
+      // Trigger render with updated values
+      setFilteredBooks(updatedList);
+    }
 
+  };
 
 
   return (
-    <div className='container'>
-      <h1 className='text-end'>רשימת ספרי לימוד</h1>
-      <div>
-        <select ref={ref} className='form-select m-2' value={selectedSubject} onChange={() => {
-          setSelectedSubject(ref.current.value)
-          helper()
-       }}
-          >
-          <option value="">Subject</option>
-          {subjects && subjects.map((subject) => (
-            <option value={subject._id} key={subject._id} className="capitalize text-end">
-              {subject.subject}
-            </option>
-          ))}
-        </select>
-      </div >
+    <><div className='container'>
+      <h1 className='text-end my-3'>רשימת ספרי לימוד</h1>
+      <div className='text-end'>
+        <input id='search-box' type="text" onChange={filterBySearch} placeholder=': חפש ספר'/>
+      </div>
 
-      <table className='table table-striped table-hover text-end'>
+    </div><table className='table table-striped table-hover text-end'>
         <thead>
           <tr>
             {isAdmin && <th></th>}
@@ -114,21 +119,18 @@ const helper=async()=>{
           </tr>
         </thead>
         <tbody>
-          {
-            filteredBooks.map((item, i) => {
-            console.log(item)
+          {filteredBooks&&filteredBooks.map((item, i) => {
+            console.log(item);
             return (
-          <BookItem key={item._id} doApi={doApi} index={i} item={item} isAdmin={isAdmin} />
-          )
-           
-        
-        })}
+              <BookItem key={item._id} doApi={doApi} index={i} item={item} isAdmin={isAdmin} />
+            );
+
+
+          })}
 
         </tbody>
-      </table>
-      <div className='d-flex justify-content-center'>
+      </table><div className='d-flex justify-content-center'>
         <PageInation navUrl={"booksList"} countlUrl={"/books/count"} />
-      </div>
-    </div>
+      </div></>
   )
 }
