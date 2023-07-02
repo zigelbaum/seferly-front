@@ -19,7 +19,7 @@ export default function UploadItem(props) {
     const open = Boolean(anchorEl);
 
     const isFieldEmpty = (_field) => {
-        return _field == "" || _field == undefined || _field == null;
+        return _field === undefined || _field === null || _field === "";
     }
     useEffect(() => {
 
@@ -161,7 +161,7 @@ export default function UploadItem(props) {
                     <div >
                         <div className='h4 '>About The Book</div>
                         <div><strong>Title:</strong> {item.bookId.name}</div>
-                        <div><strong>Subject:</strong> {item.bookId.subject}</div>
+                        {!isFieldEmpty(item.bookId.subjectId.name)&&<div><strong>Subject:</strong> {item.bookId.subjectId.name}</div>}
                         {!isFieldEmpty(item.bookId.type) && <div><strong>Type:</strong> {item.bookId.type}</div>}
                         {!isFieldEmpty(item.bookId.supervision) && <div><strong>Supervision:</strong> {item.bookId.supervision}</div>}
                         {!isFieldEmpty(item.bookId.author_name) && <div><strong>Author:</strong> {item.bookId.author_name}</div>}

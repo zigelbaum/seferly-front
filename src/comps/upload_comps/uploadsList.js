@@ -30,6 +30,7 @@ export default function UploadsList() {
             <h2>List of uploads</h2>
             <div className="row justify-content-center">
                 {ar.map(item => {
+                    console.log(item)
                     return (
                         <UploadItem key={item._id} item={item} />
                     )

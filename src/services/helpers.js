@@ -16,7 +16,9 @@ export const getCities = async (_country) => {
 //Not Getting all of the books!!!!
 export const getBooks = async () => {
     const { data } = await doApiGet(API_URL + "/books/booksList")
-    return data;
+    console.log("in get books")
+    console.log(data.filter(b=>b.subjectId!=null));
+    return data.filter(b=>b.subjectId!=null);
 }
 
 export const getSubjects = async () => {

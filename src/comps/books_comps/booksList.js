@@ -25,7 +25,7 @@ export default function BooksList() {
 
 
   const doApi = async (page) => {
-    let url = API_URL + "/books/booksList?page=" + page;
+    let url = API_URL + "/books/booksList?perPage=" + 10;
     try {
       let resp = await doApiGet(url);
       console.log(resp.data);
