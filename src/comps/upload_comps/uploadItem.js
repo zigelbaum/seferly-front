@@ -161,7 +161,7 @@ export default function UploadItem(props) {
                     <div >
                         <div className='h4 '>About The Book</div>
                         <div><strong>Title:</strong> {item.bookId.name}</div>
-                        {!isFieldEmpty(item.bookId.subjectId.name)&&<div><strong>Subject:</strong> {item.bookId.subjectId.name}</div>}
+                        {!isFieldEmpty(item.bookId.subjectId.subject)&&<div><strong>Subject:</strong> {item.bookId.subjectId.subject}</div>}
                         {!isFieldEmpty(item.bookId.type) && <div><strong>Type:</strong> {item.bookId.type}</div>}
                         {!isFieldEmpty(item.bookId.supervision) && <div><strong>Supervision:</strong> {item.bookId.supervision}</div>}
                         {!isFieldEmpty(item.bookId.author_name) && <div><strong>Author:</strong> {item.bookId.author_name}</div>}

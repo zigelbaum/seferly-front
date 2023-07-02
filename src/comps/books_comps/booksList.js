@@ -1,30 +1,64 @@
-import React, { useState, useEffect,useContext } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react'
 import { useSearchParams, useNavigate } from 'react-router-dom'
 import { API_URL, doApiGet, checkUserAdmin } from '../../services/service';
 import BookItem from './bookItem';
 import PageInation from '../general_comps/pageInation';
 import { UserContext } from '../../App';
+import { getSubjects } from '../../services/helpers';
 
 export default function BooksList() {
   const [ar, setAr] = useState([]);
-  const {isLogedIn,setLogedIn}= useContext(UserContext);
+  const { isLogedIn, setLogedIn } = useContext(UserContext);
   const [isAdmin, setIsAdmin] = useState(false);
   const [querys] = useSearchParams();
 
+  const [subjects, setSubjects] = useState([])
+  const [selectedSubject, setSelectedSubject] = useState('');
+  const [filteredBooks, setFilteredBooks] = useState([])
+  const ref = useRef()
+
+
+  const getAllSubjects = async () => {
+    let data = await getSubjects();
+    console.log(data)
+    setSubjects(data);
+  }
+
+  const handleSubChange = (event) => {
+    setSelectedSubject(event.target.value);
+  };
+
+
   useEffect(() => {
-    if(isLogedIn){
-      getAdmin();
+    if (isLogedIn) {
+      getAdmin() && getAllSubjects();
+      helper();
     }
-   
+
   }, [])
 
+  useEffect(() => {
+  console.log(filteredBooks)
+    
+  }, [filteredBooks])
+  
   useEffect(() => {
     let page = querys.get("page") || 1;
     let perPage = querys.get("perPage") || 10;
     doApi(page, perPage);
   }, [querys])
 
+const helper=async()=>{
+  setFilteredBooks(ar.filter((book) => {
+    console.log(selectedSubject)
+    if (selectedSubject === "") {
+      return true;
+    }
 
+    return book.subjectId._id === selectedSubject;
+  } ))
+
+}
   const doApi = async (page, perPage) => {
     let url = API_URL + "/books/booksList?page=" + page + "&perPage=" + perPage;
     try {
@@ -45,9 +79,26 @@ export default function BooksList() {
   }
 
 
+
+
   return (
     <div className='container'>
       <h1 className='text-end'>רשימת ספרי לימוד</h1>
+      <div>
+        <select ref={ref} className='form-select m-2' value={selectedSubject} onChange={() => {
+          setSelectedSubject(ref.current.value)
+          helper()
+       }}
+          >
+          <option value="">Subject</option>
+          {subjects && subjects.map((subject) => (
+            <option value={subject._id} key={subject._id} className="capitalize text-end">
+              {subject.subject}
+            </option>
+          ))}
+        </select>
+      </div >
+
       <table className='table table-striped table-hover text-end'>
         <thead>
           <tr>
@@ -63,11 +114,16 @@ export default function BooksList() {
           </tr>
         </thead>
         <tbody>
-          {ar.map((item, i) => {
+          {
+            filteredBooks.map((item, i) => {
+            console.log(item)
             return (
-              <BookItem key={item._id} doApi={doApi} index={i} item={item} isAdmin={isAdmin} />
-            )
-          })}
+          <BookItem key={item._id} doApi={doApi} index={i} item={item} isAdmin={isAdmin} />
+          )
+           
+        
+        })}
+
         </tbody>
       </table>
       <div className='d-flex justify-content-center'>
