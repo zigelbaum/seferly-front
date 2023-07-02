@@ -44,6 +44,7 @@ function App() {
           <Route path="/logout" element={<Logout />} />
           <Route path="/bookInput" element={<BookInput />} />
           <Route path='*/:msg' element={<NotFound />} />
+          <Route path='*' element={<NotFound />} />
         </Routes>
         {/* <Footer /> */}
 
