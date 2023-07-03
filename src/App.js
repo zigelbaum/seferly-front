@@ -46,8 +46,8 @@ function App() {
             <Route path='*/:msg' element={<NotFound />} />
             <Route path='*' element={<NotFound />} />
           </Routes>
-</div>
-          <Footer />
+         </div>
+          <Footer className="footer" />
         </div>
       </BrowserRouter >
     </UserContext.Provider>

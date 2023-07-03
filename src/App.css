@@ -22,13 +22,13 @@ body {
     flex-direction: column;
   }
   
-  footer {
+  .footer {
     background-color: gray;
     text-align: center;
     margin-top: auto;
     padding: 8px;
-    position: fixed;
+    /* bottom: 0; */
   }
- .content-wrap{
-    margin-bottom: 5px;
+ #content-wrap{
+    margin-bottom: 6px;
  }
