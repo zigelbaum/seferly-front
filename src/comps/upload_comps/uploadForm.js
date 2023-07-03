@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useContext } from 'react'
 import { useForm } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
 import { API_URL, doApiMethod } from '../../services/service'
-import { getBooks } from '../../services/helpers';
+import { getBooksNames } from '../../services/helpers';
 import InputImage from '../inputComps/inputImage';
 import { uploadImage } from '../../services/helpers';
 import SelectBook from '../inputComps/selectBook';
@@ -38,7 +38,7 @@ export default function NewUserForm() {
 
     const getAllBooks = async () => {
         console.log("in get books")
-        let data = await getBooks();
+        let data = await getBooksNames();
         setBooks(data);
     }
 

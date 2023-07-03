@@ -93,6 +93,7 @@ export default function BooksList() {
         <thead>
           <tr>
             {isAdmin && <th></th>}
+            <th></th>
             <th>מוציא לאור</th>
             <th>סופר</th>
             <th>סוג</th>

@@ -31,6 +31,7 @@ export default function BookItem(props) {
           Del
         </button>
       </td>)}
+      <td></td>
       <td>{item.publisher}</td>
       <td>{item.author_name}</td>
       <td>{item.type}</td>
