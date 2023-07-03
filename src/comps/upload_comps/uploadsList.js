@@ -18,7 +18,7 @@ export default function UploadsList() {
 
     const getAllSubjects = async () => {
         let data = await getSubjects();
-        console.log(data)
+        console.log("getallsubject " + data)
         setSubjects(data);
     }
 
@@ -34,9 +34,13 @@ export default function UploadsList() {
             alert("there problem doApi - uploadsList ,try again later")
         }
     }
+
+
     const search = (items) => {
 
         return items.filter((item) => {
+            console.log(item.bookId.subjectId.subject)
+            console.log(item.bookId.subjectId.subject == filterParam)
             if (item.bookId.subjectId.subject == filterParam) {
                 return item.bookId.name
                     .toLowerCase()
@@ -80,7 +84,7 @@ export default function UploadsList() {
                 aria-label="Filter Uploads By Subject">
                 <option value="All">Filter By Subject</option>
                 {subjects && subjects.map((subject) => (
-                    <option value={subject._id} key={subject._id} className="capitalize text-end">
+                    <option value={subject.subject} key={subject._id} className="capitalize text-end">
                         {subject.subject}
                     </option>
                 ))}
