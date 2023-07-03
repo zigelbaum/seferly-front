@@ -31,11 +31,12 @@ export default function BookItem(props) {
           Del
         </button>
       </td>)}
+      <td></td>
       <td>{item.publisher}</td>
       <td>{item.author_name}</td>
       <td>{item.type}</td>
       <td>{item.supervision}</td>
-      <td>{item.subjectId.name}</td>
+      <td>{item.subjectId.subject}</td>
       <td>{item.class}</td>
       <td>{item.name}</td>
       <td>{props.index + 1}</td>
