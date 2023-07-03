@@ -3,7 +3,8 @@ import { CircularProgress } from "@mui/material";
 import { API_URL, doApiGet } from '../../services/service';
 import UploadItem from './uploadItem';
 import { getSubjects } from '../../services/helpers';
-import SelectSubject from '../inputComps/selectSubject';
+
+import Button from "@mui/material/Button";
 
 import "./uploadsList.css"
 
@@ -12,7 +13,7 @@ export default function UploadsList() {
     const [q, setQ] = useState("");//for the search query
     const [subjects, setSubjects] = useState([]);//data 
     const [filterParam, setFilterParam] = useState(["All"]);
-    const [paginate, setpaginate] = useState(5);
+    const [paginate, setpaginate] = useState(3);
 
     useEffect(() => {
         doApi();
@@ -115,8 +116,11 @@ export default function UploadsList() {
                         </div>
                     </div>
                 }
-                
-                <button onClick={load_more}>Load More</button>
+                <div>
+
+                </div>
+                <Button style={{ color: '#A435F0', border: '#A435F0 1px solid',width:"100px" }}
+                 onClick={load_more} >Load More</Button>
             </div>
 
         </div >
