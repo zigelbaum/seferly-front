@@ -119,7 +119,7 @@ export default function UploadsList() {
                 <div>
 
                 </div>
-                <Button style={{ color: '#A435F0', border: '#A435F0 1px solid',width:"100px" }}
+                <Button style={{ color: '#228B22', border: '#228B22 1px solid',width:"100px" }}
                  onClick={load_more} >Load More</Button>
             </div>
 
