@@ -4,6 +4,7 @@ import { API_URL, doApiGet } from '../../services/service';
 import UploadItem from './uploadItem';
 import { getSubjects } from '../../services/helpers';
 import SelectSubject from '../inputComps/selectSubject';
+import "./uploadsList.css"
 
 export default function UploadsList() {
     const [ar, setAr] = useState([]);
