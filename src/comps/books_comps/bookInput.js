@@ -56,8 +56,9 @@ export default function BookInput() {
         console.log(_dataBody);
         setIsSubmitted(true);
         doApi(_dataBody);
-
     }
+
+
     const doApi = async (_dataBody) => {
         try {
             const url = API_URL + '/books';

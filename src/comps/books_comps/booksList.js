@@ -5,6 +5,8 @@ import BookItem from './bookItem';
 import PageInation from '../general_comps/pageInation';
 import { UserContext } from '../../App';
 import { getSubjects } from '../../services/helpers';
+import { IconButton, Popover } from "@mui/material";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import "../../App.css"
 
 export default function BooksList() {
@@ -12,28 +14,28 @@ export default function BooksList() {
   const { isLogedIn, setLogedIn } = useContext(UserContext);
   const [isAdmin, setIsAdmin] = useState(false);
   const [querys] = useSearchParams();
+  const [isHovered, setIsHovered] = useState(false);
   const nav = useNavigate();
   const [subjects, setSubjects] = useState([])
   // const [selectedSubject, setSelectedSubject] = useState('');
-  const [filteredBooks, setFilteredBooks] = useState(ar)
+  // const [filteredBooks, setFilteredBooks] = useState(ar)
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [wishList, setWishList] = useState([]);
+
+  const open = Boolean(anchorEl);
   const ref = useRef()
 
-
-  const getAllSubjects = async () => {
-    let data = await getSubjects();
-    console.log(data)
-    setSubjects(data);
-  }
 
 
 
   useEffect(() => {
     if (isLogedIn) {
-       getAllSubjects();
+      getAllSubjects();
+      getAdmin();
+      getMyWishList();
     } else {
       nav("/*/you must be logged in!");
     }
- 
   }, [])
 
 
@@ -42,6 +44,7 @@ export default function BooksList() {
     let perPage = querys.get("perPage") || 10;
     doApi(page, perPage);
   }, [querys])
+
 
   const doApi = async (page, perPage) => {
     let url = API_URL + "/books/booksList?page=" + page + "&perPage=" + perPage;
@@ -57,69 +60,74 @@ export default function BooksList() {
 
   }
 
+
+  const getAllSubjects = async () => {
+    let data = await getSubjects();
+    console.log(data)
+    setSubjects(data);
+  }
+
+
   const getAdmin = async () => {
-    console.log(checkUserAdmin());
+    console.log(await checkUserAdmin());
     setIsAdmin(await checkUserAdmin());
   }
 
-  const filterBySearch = (event) => {
-    // Access input value
-    const query = event.target.value;
-    if (!query) {
-      setFilteredBooks(ar)
-    } else {
-      // Create copy of item list
-      var updatedList = [...ar];
-      // Include all elements which includes the search query
-      updatedList = updatedList.filter((item) => {
-        return item.name.toLowerCase().indexOf(query.toLowerCase()) !== -1;
-      }
-      );
-      // Trigger render with updated values
-      setFilteredBooks(updatedList);
-    }
 
-  };
+  const getMyWishList = async () => {
+    let url = API_URL + "/wishes/myWishList";
+    try {
+      let resp = await doApiGet(url);
+      console.log(resp.data);
+      setWishList(resp.data.map(item=>item.book_id));
+      console.log(wishList);
+    } catch (err) {
+      console.log(err);
+      alert("there problem get my wishlist - booksList ,try again later")
+    }
+  }
 
 
   return (
     <div id="content-wrap">
       <div className='container'>
-      <h1 className='text-end my-3'>רשימת ספרי לימוד</h1>
-      <div className='text-end'>
+        <h1 className='text-end my-3'>רשימת ספרי לימוד</h1>
+        {/* <div className='text-end'>
         <input id='search-box' type="text" onChange={filterBySearch} placeholder=': חפש ספר' />
+      </div> */}
+
+
+        <table className='table table-striped table-hover text-end'>
+          <thead>
+            <tr>
+              {isAdmin && <th></th>}
+              <th></th>
+              <th>מוציא לאור</th>
+              <th>סופר</th>
+              <th>סוג</th>
+              <th>פיקוח</th>
+              <th>מקצוע</th>
+              <th>כיתה</th>
+              <th>שם</th>
+              {/* <th></th> */}
+            </tr>
+          </thead>
+          <tbody>
+            {ar.map((item, i) => {
+              let isFavored = wishList.includes(item._id);
+              console.log(isFavored);
+              // console.log(item);
+              return (
+                <BookItem key={item._id} doApi={doApi} index={i} item={item} isAdmin={isAdmin} isFavored={isFavored}/>
+              );
+            })}
+          </tbody>
+        </table>
+
+        <div className='d-flex justify-content-center'>
+          <PageInation navUrl={"booksList"} countlUrl={"/books/count"} perPage={querys.get("perPage") || 10} />
+        </div>
       </div>
-
-
-      <table className='table table-striped table-hover text-end'>
-        <thead>
-          <tr>
-            {isAdmin && <th></th>}
-            <th></th>
-            <th>מוציא לאור</th>
-            <th>סופר</th>
-            <th>סוג</th>
-            <th>פיקוח</th>
-            <th>מקצוע</th>
-            <th>כיתה</th>
-            <th>שם</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredBooks && filteredBooks.map((item, i) => {
-            console.log(item);
-            return (
-              <BookItem key={item._id} doApi={doApi} index={i} item={item} isAdmin={isAdmin} />
-            );
-          })}
-        </tbody>
-      </table>
-
-      <div className='d-flex justify-content-center'>
-        <PageInation navUrl={"booksList"} countlUrl={"/books/count"} perPage={querys.get("perPage") || 10} />
-      </div>
-    </div>
     </div>
   )
 }

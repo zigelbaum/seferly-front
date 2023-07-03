@@ -4,6 +4,10 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import { UserContext } from "../../App";
 import { doApiGet, API_URL } from '../../services/service';
 import { useNavigate } from 'react-router-dom';
+import { CircularProgress } from '@mui/material';
+import { setOpenEditWeight } from '../../features/dialogSlice';
+// import { useDispatch } from "react-redux";
+import EditIcon from '@mui/icons-material/Edit';
 import NavBarMyProfile from './navBarMyProfile';
 
 
@@ -16,6 +20,7 @@ export default function MyInfo() {
     const [values, setValues] = useState({ button1: '#CCCCCC', button2: '#A435F0' });
     const { isLogedIn } = useContext(UserContext);
     const [user, setUser] = useState();
+    // const dispatch = useDispatch();
     const nav = useNavigate();
 
 
@@ -40,23 +45,36 @@ export default function MyInfo() {
             fetchData();
             console.log(user)
         }
-    }, []); // Empty dependency array, so the effect runs only once
+    }, []);
 
     const clickOnPosts = () => {
         setValues({
-          button1: "#A435F0",
-          button2: "#CCCCCC",
+            button1: "#A435F0",
+            button2: "#CCCCCC",
         });
         setShowPosts("block")
         setShowInfo("none")
-      }
+    }
+
+
+    const onChangeLocation = () => {
+        console.log("in change location");
+        // dispatch(setOpenEditWeight({ val: true }))
+    }
+
+
+    const onChangePhone = () => {
+        console.log("in change phone")
+    }
 
 
     return (
         <div>
             {isLoading ? (
-                <div className='container mt-5'>
-                    <div className='display-1'>Loading...</div> // Display a loading indicator
+                <div style={{ display: "flex", alignItems: "center", minHeight: '100px' }}>
+                    <div style={{ margin: "0 auto" }}>
+                        <CircularProgress size={"50px"} />
+                    </div>
                 </div>
             ) : (
                 <div>
@@ -78,13 +96,23 @@ export default function MyInfo() {
                                 />
                             </div>
                             <div className='ms-md-5 ms-2 mt-0 mt-sm-1'>
-                                <h2 className='mb-3 s24'>{user?.fullName?.firstName}</h2>
-                                <div className='pb-2'><span className='fw-bold'>Location: </span>{user?.city}</div>
-                                <div className='pb-2'><span className='fw-bold'>Phone number: </span>{user?.phone}</div>
+                                <h2 className='mb-3 s24'>{user?.fullName?.firstName} {user?.fullName?.lastName}</h2>
+                                <div className='pb-2' style={{ display: "flex" }}>
+                                    <span className='fw-bold'>{'Location: '}</span>{' '}{user?.city}
+                                    <div onClick={onChangeLocation} style={{ margin: "0 16px", cursor: "pointer" }}>
+                                        <EditIcon />
+                                    </div>
+                                </div>
+                                <div className='pb-2' style={{ display: "flex" }}>
+                                    <span className='fw-bold'>{'Phone number: '}</span>{' '}{user?.phone}
+                                    <div onClick={onChangePhone} style={{ margin: "0 16px", cursor: "pointer" }}>
+                                        <EditIcon />
+                                    </div>
+                                </div>
                                 <div className='d-flex mb-2 text-center'>
                                     <div>
-                                        {user?.posts?.length || 0}{' '}
-                                        <span className='weight500'>Posts</span>
+                                        {user?.uploads?.length || 0}{' '}
+                                        <span className='fw-bold'>Posts </span>
                                     </div>
                                 </div>
                             </div>
