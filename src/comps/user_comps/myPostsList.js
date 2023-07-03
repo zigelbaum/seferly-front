@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom';
 import useInfiniteScroll from 'react-infinite-scroll-hook';
 import UploadItem from '../upload_comps/uploadItem'; 
 import { CircularProgress } from '@mui/material';
@@ -9,7 +8,6 @@ import { toast } from 'react-toastify';
 
 export default function MyPostsList() {
 
-    const nav = useNavigate();
     const [items, setItems] = useState([]);
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(false);
