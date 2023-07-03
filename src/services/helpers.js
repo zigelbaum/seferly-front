@@ -29,6 +29,10 @@ export const getSubjects = async () => {
         throw (err);
     }
 }
+ 
+// export const getWishList = async () => {
+    
+// }
 
 export const uploadImage = async (file) => {
     if (file == "" || file == null || file == undefined) {
