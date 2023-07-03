@@ -32,7 +32,8 @@ export default function LoginForm() {
       if (data.token) {
         setLogedIn(true);
         console.log(isLogedIn);
-         nav('/uploadsList')
+        nav(`/messages/${data.token}`)
+        //nav('/uploadsList')
       }
     } catch (err) {
       alert(err.response.data.msg || err.response.data[0].message)

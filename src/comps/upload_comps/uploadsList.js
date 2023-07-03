@@ -63,54 +63,58 @@ export default function UploadsList() {
 
     const load_more = (event) => {
         setpaginate((prevValue) => prevValue + 8);
-      };
+    };
 
     return (
-      
+
         <div className='container'>
             <h2>List of uploads</h2>
-            <div className="search-wrapper">
-                <label htmlFor="search-form">
-                    <input
-                        type="search"
-                        name="search-form"
-                        id="search-form"
-                        className="search-input"
-                        placeholder="Search for a book..."
-                        value={q}
-                        onChange={(e) => setQ(e.target.value)}
-                    />
-                </label>
+            <div className="row justify-content-center justify-content-md-between ">
+                <div className="col-7 col-md-6 col-lg-5 col-xl-4 ">
+                   
+                        <label htmlFor="search-form">
+                            <input
+                                type="search"
+                                name="search-form"
+                                id="search-form"
+                                className="search-input"
+                                placeholder="Search for a book..."
+                                value={q}
+                                onChange={(e) => setQ(e.target.value)}
+                            />
+                        </label>
+                 
+                </div>
+
+                
+          <div className="col-5 col-md-4 col-lg-3">
+                <select
+
+                    onChange={(e) => {
+                        setFilterParam(e.target.value);
+                    }}
+                    className="custom-select"
+                    aria-label="Filter Uploads By Subject">
+                    <option value="All">Filter By Subject</option>
+                    {subjects && subjects.map((subject) => (
+                        <option value={subject.subject} key={subject._id} className="capitalize text-end">
+                            {subject.subject}
+                        </option>
+                    ))}
+
+                </select>
             </div>
-
-            <select
-
-                onChange={(e) => {
-                    setFilterParam(e.target.value);
-                }}
-                className="custom-select"
-                aria-label="Filter Uploads By Subject">
-                <option value="All">Filter By Subject</option>
-                {subjects && subjects.map((subject) => (
-                    <option value={subject.subject} key={subject._id} className="capitalize text-end">
-                        {subject.subject}
-                    </option>
-                ))}
-
-            </select>
-
-            <span className="focus"></span>
-
+</div>
 
             <div className="row justify-content-center">
                 {search(ar)
-                 .slice(0, paginate)
-                 .map(item => {
-                    console.log(item)
-                    return (
-                        <UploadItem key={item._id} item={item} />
-                    )
-                })}
+                    .slice(0, paginate)
+                    .map(item => {
+                        console.log(item)
+                        return (
+                            <UploadItem key={item._id} item={item} />
+                        )
+                    })}
                 {ar.length < 1 &&
                     <div style={{ display: "flex", alignItems: "center", minHeight: '100px' }}>
                         <div style={{ margin: "0 auto" }}>
@@ -121,8 +125,8 @@ export default function UploadsList() {
                 <div>
 
                 </div>
-                <Button className="my-3" style={{ color: '#228B22', border: '#228B22 1px solid',width:"100px" }}
-                 onClick={load_more} >Load More</Button>
+                <Button className="my-3" style={{ color: '#228B22', border: '#228B22 1px solid', width: "100px" }}
+                    onClick={load_more} >Load More</Button>
             </div>
 
         </div >
