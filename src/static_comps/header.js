@@ -29,8 +29,9 @@ export default function Header() {
               <div className='d-none d-md-flex'>
                 <Link to="/myInfo">My Info</Link>
               </div>
-              <div className='d-none d-md-flex'>
-                <Link to="/logout">Logout</Link>
+              <div className='d-none d-md-flex '>
+                <Link to="/logout"><i class="fa fa-sign-out fa-2x" aria-hidden="true"></i></Link>
+                <span class="glyphicon glyphicon-log-out"></span>
               </div>
               <div className="d-flex justify-content-md-end">
                 <Link to="/login">

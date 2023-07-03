@@ -11,20 +11,23 @@ import "../../App.css"
 
 export default function BooksList() {
   const [ar, setAr] = useState([]);
+  const[books,setBooks]=useState([]);
   const { isLogedIn, setLogedIn } = useContext(UserContext);
   const [isAdmin, setIsAdmin] = useState(false);
   const [querys] = useSearchParams();
   const [isHovered, setIsHovered] = useState(false);
-  const nav = useNavigate();
   const [subjects, setSubjects] = useState([])
-  // const [selectedSubject, setSelectedSubject] = useState('');
-  // const [filteredBooks, setFilteredBooks] = useState(ar)
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [wishList, setWishList] = useState([]);
 
+
+  const [filterParam, setFilterParam] = useState(["All"]);
+  const [q, setQ] = useState("");//for the search query
+
+
   const open = Boolean(anchorEl);
   const ref = useRef()
-
+  const nav = useNavigate();
 
 
 
@@ -79,7 +82,7 @@ export default function BooksList() {
     try {
       let resp = await doApiGet(url);
       console.log(resp.data);
-      setWishList(resp.data.map(item=>item.book_id));
+      setWishList(resp.data.map(item => item.book_id));
       console.log(wishList);
     } catch (err) {
       console.log(err);
@@ -87,15 +90,62 @@ export default function BooksList() {
     }
   }
 
+  const search = (items) => {
+    return items.filter((item) => {
+      console.log(item.subjectId.subject)
+      console.log(item.subjectId.subject == filterParam)
+      if (item.subjectId.subject == filterParam) {
+        return item.name
+          .toLowerCase()
+          .indexOf(q.toLowerCase()) > -1
+      } else if (filterParam == "All") {
+        return item.name
+          .toLowerCase()
+          .indexOf(q.toLowerCase()) > -1
+
+      }
+    }
+    )
+  }
+
 
   return (
     <div id="content-wrap">
       <div className='container'>
         <h1 className='text-end my-3'>רשימת ספרי לימוד</h1>
-        {/* <div className='text-end'>
-        <input id='search-box' type="text" onChange={filterBySearch} placeholder=': חפש ספר' />
-      </div> */}
 
+        <div className="search-wrapper">
+          <label htmlFor="search-form">
+            <input
+              type="search"
+              name="search-form"
+              id="search-form"
+              className="search-input"
+              placeholder="Search for a book..."
+              value={q}
+              onChange={(e) => setQ(e.target.value)}
+            />
+          </label>
+        </div>
+
+
+        <select
+
+          onChange={(e) => {
+            setFilterParam(e.target.value);
+          }}
+          className="custom-select"
+          aria-label="Filter Books By Subject">
+          <option value="All">Filter By Subject</option>
+          {subjects && subjects.map((subject) => (
+            <option value={subject.subject} key={subject._id} className="capitalize text-end">
+              {subject.subject}
+            </option>
+          ))}
+
+        </select>
+
+        <span className="focus"></span>
 
         <table className='table table-striped table-hover text-end'>
           <thead>
@@ -113,12 +163,13 @@ export default function BooksList() {
             </tr>
           </thead>
           <tbody>
-            {ar.map((item, i) => {
+            {search(ar)
+            .map((item, i) => {
               let isFavored = wishList.includes(item._id);
               console.log(isFavored);
               // console.log(item);
               return (
-                <BookItem key={item._id} doApi={doApi} index={i} item={item} isAdmin={isAdmin} isFavored={isFavored}/>
+                <BookItem key={item._id} doApi={doApi} index={i} item={item} isAdmin={isAdmin} isFavored={isFavored} />
               );
             })}
           </tbody>

@@ -127,6 +127,7 @@ export default function MyInfo() {
                     </div >
 
                     <NavBarMyProfile setShowInfo={setShowInfo} showInfo={showInfo} clickOnPosts={clickOnPosts} setShowPosts={setShowPosts} showPosts={showPosts} setValues={setValues} values={values} />
+                    
 
                 </div>
             )}

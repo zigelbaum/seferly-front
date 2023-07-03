@@ -27,8 +27,8 @@ body {
     text-align: center;
     margin-top: auto;
     padding: 8px;
-    /* bottom: 0; */
   }
- #content-wrap{
-    margin-bottom: 6px;
+ .content-wrap{
+    margin-bottom: 10px;
+    margin-top: 10px;
  }
