@@ -25,3 +25,24 @@
         box-shadow: 0px 0px 0px var(--border);
     }
 }
+
+.search-wrapper {
+    margin: 48px 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+button {
+    display: block;
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+    font-size: 1.4rem;
+    padding: 12px 32px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 40px;
+    background-color: #00bb00;
+    border: 1px solid #00aa00;
+    color: #fff;
+    cursor: pointer;
+}
