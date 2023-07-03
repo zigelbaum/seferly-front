@@ -98,13 +98,14 @@ export default function BooksList() {
 
 
   return (
-    <><div className='container'>
+    <div className='container'>
       <h1 className='text-end my-3'>רשימת ספרי לימוד</h1>
       <div className='text-end'>
-        <input id='search-box' type="text" onChange={filterBySearch} placeholder=': חפש ספר'/>
+        <input id='search-box' type="text" onChange={filterBySearch} placeholder=': חפש ספר' />
       </div>
 
-    </div><table className='table table-striped table-hover text-end'>
+
+      <table className='table table-striped table-hover text-end'>
         <thead>
           <tr>
             {isAdmin && <th></th>}
@@ -119,20 +120,18 @@ export default function BooksList() {
           </tr>
         </thead>
         <tbody>
-          {filteredBooks&&filteredBooks.map((item, i) => {
+          {filteredBooks && filteredBooks.map((item, i) => {
             console.log(item);
             return (
               <BookItem key={item._id} doApi={doApi} index={i} item={item} isAdmin={isAdmin} />
             );
-
-
           })}
-
         </tbody>
       </table>
+
       <div className='d-flex justify-content-center'>
-        <PageInation navUrl={"booksList"} countlUrl={"/books/count"} perPage={querys.get("perPage")||10}/>
+        <PageInation navUrl={"booksList"} countlUrl={"/books/count"} perPage={querys.get("perPage") || 10} />
       </div>
-    </div>
+    </div >
   )
 }
