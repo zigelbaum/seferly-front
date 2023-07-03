@@ -8,7 +8,8 @@ import { checkUserAdmin } from '../../services/service';
 import { UserContext } from '../../App';
 import { API_URL, doApiMethod } from '../../services/service'
 import SelectGrade from '../inputComps/selectGrade'; 
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function BookInput() {
 
@@ -62,8 +63,14 @@ export default function BookInput() {
             const url = API_URL + '/books';
             const { data } = await doApiMethod(url, "POST", _dataBody);
             console.log(data)
+            toast.success('Book added successfully !', {
+                position: toast.POSITION.TOP_RIGHT
+            });
+            
+
         }
         catch (err) {
+        
             alert(err.response.data.msg || err.response.data[0].message)
             setIsSubmitted(false);
         }
@@ -93,6 +100,7 @@ export default function BookInput() {
                 {errors.publisher && <div className='text-danger'>* Enter a valid publisher  name, must contain 2-50 characters!</div>}
 
                 <button className='btn btn-primary mt-3'>Save</button>
+                <ToastContainer />
             </form>
         </div>
     )

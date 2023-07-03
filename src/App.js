@@ -13,7 +13,7 @@ import Header from './static_comps/header';
 import Footer from './static_comps/footer';
 import NotFound from './comps/general_comps/notFound';
 import UploadForm from './comps/upload_comps/uploadForm';
-import React, { useState,useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import Logout from './comps/login_comps/logout';
 import BookInput from './comps/books_comps/bookInput';
 import MyInfo from './comps/user_comps/myInfo';
@@ -25,29 +25,30 @@ function App() {
   const [isLogedIn, setLogedIn] = useState(false);
 
   return (
-    < UserContext.Provider value={{isLogedIn,setLogedIn}} >
+    < UserContext.Provider value={{ isLogedIn, setLogedIn }} >
       <BrowserRouter>
-
-        <Header />
-
-        <Routes>
-          <Route index element={<Home />} />
-          <Route path="/login" element={<LoginForm />} />
-          <Route path="/signUp" element={<NewUserForm />} />
-          <Route path="/messages/" element={<Sign_up_Message />} />
-          <Route path="/messages/:token" element={<Login_message />} />
-          <Route path="/usersList" element={<UsersList />} />
-          <Route path="/uploadsList" element={<UploadsList />} />
-          <Route path="/uploadForm" element={<UploadForm />}/>
-          <Route path="/booksList" element={<BooksList />} />
-          <Route path="/myInfo" element={<MyInfo />} />
-          <Route path="/logout" element={<Logout />} />
-          <Route path="/bookInput" element={<BookInput />} />
-          <Route path='*/:msg' element={<NotFound />} />
-          <Route path='*' element={<NotFound />} />
-        </Routes>
-        {/* <Footer /> */}
-
+        <div className='App'>
+          <Header />
+         <div className='content-wrap'>
+          <Routes>
+            <Route index element={<Home />} />
+            <Route path="/login" element={<LoginForm />} />
+            <Route path="/signUp" element={<NewUserForm />} />
+            <Route path="/messages/" element={<Sign_up_Message />} />
+            <Route path="/messages/:token" element={<Login_message />} />
+            <Route path="/usersList" element={<UsersList />} />
+            <Route path="/uploadsList" element={<UploadsList />} />
+            <Route path="/uploadForm" element={<UploadForm />} />
+            <Route path="/booksList" element={<BooksList />} />
+            <Route path="/myInfo" element={<MyInfo />} />
+            <Route path="/logout" element={<Logout />} />
+            <Route path="/bookInput" element={<BookInput />} />
+            <Route path='*/:msg' element={<NotFound />} />
+            <Route path='*' element={<NotFound />} />
+          </Routes>
+</div>
+          <Footer />
+        </div>
       </BrowserRouter >
     </UserContext.Provider>
 

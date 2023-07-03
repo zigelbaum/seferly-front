@@ -3,13 +3,18 @@ import { CircularProgress } from "@mui/material";
 import { API_URL, doApiGet } from '../../services/service';
 import UploadItem from './uploadItem';
 import { getSubjects } from '../../services/helpers';
-import SelectSubject from '../inputComps/selectSubject';
+
+
+import Button from "@mui/material/Button";
+
+import "./uploadsList.css"
 
 export default function UploadsList() {
     const [ar, setAr] = useState([]);
     const [q, setQ] = useState("");//for the search query
     const [subjects, setSubjects] = useState([]);//data 
     const [filterParam, setFilterParam] = useState(["All"]);
+    const [paginate, setpaginate] = useState(3);
 
     useEffect(() => {
         doApi();
@@ -46,7 +51,7 @@ export default function UploadsList() {
                     .toLowerCase()
                     .indexOf(q.toLowerCase()) > -1
             } else if (filterParam == "All") {
-                    return item.bookId.name
+                return item.bookId.name
                     .toLowerCase()
                     .indexOf(q.toLowerCase()) > -1
 
@@ -56,24 +61,27 @@ export default function UploadsList() {
     }
 
 
-
+    const load_more = (event) => {
+        setpaginate((prevValue) => prevValue + 8);
+      };
 
     return (
+      
         <div className='container'>
             <h2>List of uploads</h2>
-
-            <label htmlFor="search-form">
-                <input
-                    type="search"
-                    name="search-form"
-                    id="search-form"
-                    className="search-input"
-                    placeholder="Search for a book..."
-                    value={q}
-                    onChange={(e) => setQ(e.target.value)}
-                />
-            </label>
-
+            <div className="search-wrapper">
+                <label htmlFor="search-form">
+                    <input
+                        type="search"
+                        name="search-form"
+                        id="search-form"
+                        className="search-input"
+                        placeholder="Search for a book..."
+                        value={q}
+                        onChange={(e) => setQ(e.target.value)}
+                    />
+                </label>
+            </div>
 
             <select
 
@@ -90,22 +98,14 @@ export default function UploadsList() {
                 ))}
 
             </select>
-            {/* <select ref={ref} className='form-select m-2' value={selectedSubject} onChange={() => {
-                setSelectedSubject(ref.current.value)
-            }}>
-                <option value="">Subject</option>
-                {subjects && subjects.map((subject) => (
-                    <option value={subject._id} key={subject._id} className="capitalize text-end">
-                        {subject.subject}
-                    </option>
-                ))}
-                </select> */}
 
             <span className="focus"></span>
 
 
             <div className="row justify-content-center">
-                {search(ar).map(item => {
+                {search(ar)
+                 .slice(0, paginate)
+                 .map(item => {
                     console.log(item)
                     return (
                         <UploadItem key={item._id} item={item} />
@@ -118,8 +118,14 @@ export default function UploadsList() {
                         </div>
                     </div>
                 }
+                <div>
+
+                </div>
+                <Button style={{ color: '#228B22', border: '#228B22 1px solid',width:"100px" }}
+                 onClick={load_more} >Load More</Button>
             </div>
 
         </div >
+
     )
 }

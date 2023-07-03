@@ -5,16 +5,22 @@ import BookItem from './bookItem';
 import PageInation from '../general_comps/pageInation';
 import { UserContext } from '../../App';
 import { getSubjects } from '../../services/helpers';
+import {  IconButton, Popover } from "@mui/material";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import "../../App.css"
 
 export default function BooksList() {
   const [ar, setAr] = useState([]);
   const { isLogedIn, setLogedIn } = useContext(UserContext);
   const [isAdmin, setIsAdmin] = useState(false);
   const [querys] = useSearchParams();
+  const [isHovered, setIsHovered] = useState(false);
   const nav = useNavigate();
   const [subjects, setSubjects] = useState([])
   // const [selectedSubject, setSelectedSubject] = useState('');
   const [filteredBooks, setFilteredBooks] = useState(ar)
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
   const ref = useRef()
 
 
@@ -82,7 +88,8 @@ export default function BooksList() {
 
 
   return (
-   <div className='container'>
+    <div id="content-wrap">
+      <div className='container'>
       <h1 className='text-end my-3'>רשימת ספרי לימוד</h1>
       <div className='text-end'>
         <input id='search-box' type="text" onChange={filterBySearch} placeholder=': חפש ספר' />
@@ -93,7 +100,42 @@ export default function BooksList() {
         <thead>
           <tr>
             {isAdmin && <th></th>}
-            <th></th>
+            <th>
+            <div className={isHovered.toString()}
+                onMouseEnter={(event) => {
+                  setAnchorEl(event.currentTarget)
+                  setIsHovered(true)
+                }}
+                onMouseLeave={() => {
+                  setIsHovered(false)
+                }}
+              >
+                <IconButton
+                  sx={{ width: 33, height: 33 }}
+                  aria-label="add to favorites"
+                >
+                  <FavoriteBorderIcon />
+                </IconButton>
+                {isHovered && <Popover
+                  anchorEl={anchorEl}
+                  open={isHovered}
+                  onClose={() => {
+                    setAnchorEl(null)
+                    setIsHovered(false)
+                  }}
+                  transformOrigin={{
+                    horizontal: "center",
+                    vertical: "top",
+                  }}
+                  anchorOrigin={{
+                    horizontal: "center",
+                    vertical: "bottom",
+                  }}
+                >
+                  מודעות שאהבתי
+                </Popover>}
+              </div>
+            </th>
             <th>מוציא לאור</th>
             <th>סופר</th>
             <th>סוג</th>
@@ -117,6 +159,7 @@ export default function BooksList() {
       <div className='d-flex justify-content-center'>
         <PageInation navUrl={"booksList"} countlUrl={"/books/count"} perPage={querys.get("perPage") || 10} />
       </div>
+    </div>
     </div>
   )
 }
