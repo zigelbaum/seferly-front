@@ -5,6 +5,7 @@ import BookItem from './bookItem';
 import PageInation from '../general_comps/pageInation';
 import { UserContext } from '../../App';
 import { getSubjects } from '../../services/helpers';
+import "../../App.css"
 
 export default function BooksList() {
   const [ar, setAr] = useState([]);
@@ -82,7 +83,8 @@ export default function BooksList() {
 
 
   return (
-   <div className='container'>
+    <div id="content-wrap">
+      <div className='container'>
       <h1 className='text-end my-3'>רשימת ספרי לימוד</h1>
       <div className='text-end'>
         <input id='search-box' type="text" onChange={filterBySearch} placeholder=': חפש ספר' />
@@ -117,6 +119,7 @@ export default function BooksList() {
       <div className='d-flex justify-content-center'>
         <PageInation navUrl={"booksList"} countlUrl={"/books/count"} perPage={querys.get("perPage") || 10} />
       </div>
+    </div>
     </div>
   )
 }

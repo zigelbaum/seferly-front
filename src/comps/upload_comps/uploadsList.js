@@ -4,6 +4,7 @@ import { API_URL, doApiGet } from '../../services/service';
 import UploadItem from './uploadItem';
 import { getSubjects } from '../../services/helpers';
 
+
 import Button from "@mui/material/Button";
 
 import "./uploadsList.css"
@@ -65,7 +66,8 @@ export default function UploadsList() {
       };
 
     return (
-        <div className='container'>
+      
+        <div >
             <h2>List of uploads</h2>
             <div className="search-wrapper">
                 <label htmlFor="search-form">
@@ -124,5 +126,6 @@ export default function UploadsList() {
             </div>
 
         </div >
+
     )
 }
