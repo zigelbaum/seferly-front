@@ -8,10 +8,11 @@ import { getSubjects } from '../../services/helpers';
 import { IconButton, Popover } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import "../../App.css"
+import "../upload_comps/uploadsList.css"
 
 export default function BooksList() {
   const [ar, setAr] = useState([]);
-  const[books,setBooks]=useState([]);
+  const [books, setBooks] = useState([]);
   const { isLogedIn, setLogedIn } = useContext(UserContext);
   const [isAdmin, setIsAdmin] = useState(false);
   const [querys] = useSearchParams();
@@ -110,75 +111,79 @@ export default function BooksList() {
 
 
   return (
-    <div id="content-wrap">
+    
       <div className='container'>
-        <h1 className='text-end my-3'>רשימת ספרי לימוד</h1>
+        <h1 className='text-end '>רשימת ספרי לימוד</h1>
+        <div className="row justify-content-center justify-content-md-between my-3">
+          <div className="col-7 col-md-6 col-lg-5 col-xl-4 ">
 
-        <div className="search-wrapper">
-          <label htmlFor="search-form">
-            <input
-              type="search"
-              name="search-form"
-              id="search-form"
-              className="search-input"
-              placeholder="Search for a book..."
-              value={q}
-              onChange={(e) => setQ(e.target.value)}
-            />
-          </label>
-        </div>
+         
+              <label htmlFor="search-form">
+                <input
+                  type="search"
+                  name="search-form"
+                  id="search-form"
+                  className="search-input"
+                  placeholder="Search for a book..."
+                  value={q}
+                  onChange={(e) => setQ(e.target.value)}
+                />
+              </label>
+            </div>
+       
+            <div className="col-5 col-md-4 col-lg-3">
+          <select
 
+            onChange={(e) => {
+              setFilterParam(e.target.value);
+            }}
+            className="custom-select"
+            aria-label="Filter Books By Subject">
+            <option value="All">Filter By Subject</option>
+            {subjects && subjects.map((subject) => (
+              <option value={subject.subject} key={subject._id} className="capitalize text-end">
+                {subject.subject}
+              </option>
+            ))}
 
-        <select
+          </select>
+          </div>
 
-          onChange={(e) => {
-            setFilterParam(e.target.value);
-          }}
-          className="custom-select"
-          aria-label="Filter Books By Subject">
-          <option value="All">Filter By Subject</option>
-          {subjects && subjects.map((subject) => (
-            <option value={subject.subject} key={subject._id} className="capitalize text-end">
-              {subject.subject}
-            </option>
-          ))}
+          <span className="focus"></span>
 
-        </select>
+          <table className='table table-striped table-hover text-end'>
+            <thead>
+              <tr>
+                {isAdmin && <th></th>}
+                <th></th>
+                <th>מוציא לאור</th>
+                <th>סופר</th>
+                <th>סוג</th>
+                <th>פיקוח</th>
+                <th>מקצוע</th>
+                <th>כיתה</th>
+                <th>שם</th>
+                {/* <th></th> */}
+              </tr>
+            </thead>
+            <tbody>
+              {search(ar)
+                .map((item, i) => {
+                  let isFavored = wishList.includes(item._id);
+                  console.log(isFavored);
+                  // console.log(item);
+                  return (
+                    <BookItem key={item._id} doApi={doApi} index={i} item={item} isAdmin={isAdmin} isFavored={isFavored} />
+                  );
+                })}
+            </tbody>
+          </table>
 
-        <span className="focus"></span>
-
-        <table className='table table-striped table-hover text-end'>
-          <thead>
-            <tr>
-              {isAdmin && <th></th>}
-              <th></th>
-              <th>מוציא לאור</th>
-              <th>סופר</th>
-              <th>סוג</th>
-              <th>פיקוח</th>
-              <th>מקצוע</th>
-              <th>כיתה</th>
-              <th>שם</th>
-              {/* <th></th> */}
-            </tr>
-          </thead>
-          <tbody>
-            {search(ar)
-            .map((item, i) => {
-              let isFavored = wishList.includes(item._id);
-              console.log(isFavored);
-              // console.log(item);
-              return (
-                <BookItem key={item._id} doApi={doApi} index={i} item={item} isAdmin={isAdmin} isFavored={isFavored} />
-              );
-            })}
-          </tbody>
-        </table>
-
-        <div className='d-flex justify-content-center'>
-          <PageInation navUrl={"booksList"} countlUrl={"/books/count"} perPage={querys.get("perPage") || 10} />
+          <div className='d-flex justify-content-center'>
+            <PageInation navUrl={"booksList"} countlUrl={"/books/count"} perPage={querys.get("perPage") || 10} />
+          </div>
         </div>
       </div>
-    </div>
-  )
+   
+      )
 }

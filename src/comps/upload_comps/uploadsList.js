@@ -8,6 +8,7 @@ import { getSubjects } from '../../services/helpers';
 import Button from "@mui/material/Button";
 
 import "./uploadsList.css"
+import Add from '../general_comps/Add';
 
 export default function UploadsList() {
     const [ar, setAr] = useState([]);
@@ -69,42 +70,42 @@ export default function UploadsList() {
 
         <div className='container'>
             <h2>List of uploads</h2>
-            <div className="row justify-content-center justify-content-md-between ">
+            <div className="row justify-content-center justify-content-md-between my-3 ">
                 <div className="col-7 col-md-6 col-lg-5 col-xl-4 ">
-                   
-                        <label htmlFor="search-form">
-                            <input
-                                type="search"
-                                name="search-form"
-                                id="search-form"
-                                className="search-input"
-                                placeholder="Search for a book..."
-                                value={q}
-                                onChange={(e) => setQ(e.target.value)}
-                            />
-                        </label>
-                 
+
+                    <label htmlFor="search-form">
+                        <input
+                            type="search"
+                            name="search-form"
+                            id="search-form"
+                            className="search-input"
+                            placeholder="Search for a book..."
+                            value={q}
+                            onChange={(e) => setQ(e.target.value)}
+                        />
+                    </label>
+
                 </div>
 
-                
-          <div className="col-5 col-md-4 col-lg-3">
-                <select
 
-                    onChange={(e) => {
-                        setFilterParam(e.target.value);
-                    }}
-                    className="custom-select"
-                    aria-label="Filter Uploads By Subject">
-                    <option value="All">Filter By Subject</option>
-                    {subjects && subjects.map((subject) => (
-                        <option value={subject.subject} key={subject._id} className="capitalize text-end">
-                            {subject.subject}
-                        </option>
-                    ))}
+                <div className="col-5 col-md-4 col-lg-3">
+                    <select
 
-                </select>
+                        onChange={(e) => {
+                            setFilterParam(e.target.value);
+                        }}
+                        className="custom-select"
+                        aria-label="Filter Uploads By Subject">
+                        <option value="All">Filter By Subject</option>
+                        {subjects && subjects.map((subject) => (
+                            <option value={subject.subject} key={subject._id} className="capitalize text-end">
+                                {subject.subject}
+                            </option>
+                        ))}
+
+                    </select>
+                </div>
             </div>
-</div>
 
             <div className="row justify-content-center">
                 {search(ar)
@@ -128,7 +129,7 @@ export default function UploadsList() {
                 <Button className="my-3" style={{ color: '#228B22', border: '#228B22 1px solid', width: "100px" }}
                     onClick={load_more} >Load More</Button>
             </div>
-
+            <Add />
         </div >
 
     )

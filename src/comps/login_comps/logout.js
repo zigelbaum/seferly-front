@@ -17,7 +17,11 @@ const Logout = () => {
       if(isLogedIn)
       {
         disconnected()
-      } else {nav(`/login`)}
+      }
+
+        else{ nav("/*/you are not logged in!")
+           }
+
      
     }, [])
     const disconnected = async () => {
