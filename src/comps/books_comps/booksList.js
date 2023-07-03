@@ -7,6 +7,7 @@ import { UserContext } from '../../App';
 import { getSubjects } from '../../services/helpers';
 import {  IconButton, Popover } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import "../../App.css"
 
 export default function BooksList() {
   const [ar, setAr] = useState([]);
@@ -14,8 +15,9 @@ export default function BooksList() {
   const [isAdmin, setIsAdmin] = useState(false);
   const [querys] = useSearchParams();
   const [isHovered, setIsHovered] = useState(false);
+  const nav = useNavigate();
   const [subjects, setSubjects] = useState([])
-  const [selectedSubject, setSelectedSubject] = useState('');
+  // const [selectedSubject, setSelectedSubject] = useState('');
   const [filteredBooks, setFilteredBooks] = useState(ar)
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -28,22 +30,17 @@ export default function BooksList() {
     setSubjects(data);
   }
 
-  const handleSubChange = (event) => {
-    setSelectedSubject(event.target.value);
-  };
 
 
   useEffect(() => {
     if (isLogedIn) {
-      getAdmin() && getAllSubjects();
+       getAllSubjects();
+    } else {
+      nav("/*/you must be logged in!");
     }
-
+ 
   }, [])
 
-  // useEffect(() => {
-  // console.log(filteredBooks)
-
-  // }, [filteredBooks])
 
   useEffect(() => {
     let page = querys.get("page") || 1;
@@ -51,17 +48,6 @@ export default function BooksList() {
     doApi(page, perPage);
   }, [querys])
 
-  const helper = async () => {
-    setFilteredBooks(ar.filter((book) => {
-      console.log(selectedSubject)
-      if (selectedSubject === "") {
-        return true;
-      }
-
-      return book.subjectId._id === selectedSubject;
-    }))
-
-  }
   const doApi = async (page, perPage) => {
     let url = API_URL + "/books/booksList?page=" + page + "&perPage=" + perPage;
     try {
@@ -84,7 +70,7 @@ export default function BooksList() {
   const filterBySearch = (event) => {
     // Access input value
     const query = event.target.value;
-    if (query === "") {
+    if (!query) {
       setFilteredBooks(ar)
     } else {
       // Create copy of item list
@@ -102,7 +88,8 @@ export default function BooksList() {
 
 
   return (
-    <div className='container'>
+    <div id="content-wrap">
+      <div className='container'>
       <h1 className='text-end my-3'>רשימת ספרי לימוד</h1>
       <div className='text-end'>
         <input id='search-box' type="text" onChange={filterBySearch} placeholder=': חפש ספר' />
@@ -172,6 +159,7 @@ export default function BooksList() {
       <div className='d-flex justify-content-center'>
         <PageInation navUrl={"booksList"} countlUrl={"/books/count"} perPage={querys.get("perPage") || 10} />
       </div>
-    </div >
+    </div>
+    </div>
   )
 }

@@ -7,7 +7,8 @@ import InputImage from '../inputComps/inputImage';
 import { uploadImage } from '../../services/helpers';
 import SelectBook from '../inputComps/selectBook';
 import { UserContext } from "../../App";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function NewUserForm() {
 
@@ -57,6 +58,10 @@ export default function NewUserForm() {
             const url = API_URL + '/uploads';
             const { data } = await doApiMethod(url, "POST", _dataBody);
             console.log(data)
+            toast.success('Book added successfully !', {
+                position: toast.POSITION.TOP_RIGHT
+            });
+            setTimeout(() =>  nav(`/uploadsList`), 4000);
         }
         catch (err) {
             alert(err.response.data.msg || err.response.data[0].message)
@@ -83,6 +88,7 @@ export default function NewUserForm() {
 
                 <button className='btn btn-primary mt-3'>Save</button>
             </form>
+            <ToastContainer />
         </div>
     )
 }

@@ -4,7 +4,8 @@ import {useNavigate } from 'react-router-dom';
 import {API_URL,doApiGet,doApiMethodSignUpLogin} from '../../services/service'
 import { getCities } from '../../services/helpers';
 import SelectCity from '../inputComps/selectCity';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function NewUserForm() {
 
@@ -55,9 +56,14 @@ export default function NewUserForm() {
         const url = API_URL + '/users';
         const { data } = await doApiMethodSignUpLogin(url,"POST",_dataBody);
         console.log(data);
-        if (data.email){
-          nav(`/messages/?s=${data.email}`)
-  
+
+        if (data){
+          toast.success('Sign up completed successfully !', {
+            position: toast.POSITION.TOP_RIGHT
+        });
+        setTimeout(() =>  nav(`/login`), 4000);
+        
+       
         }
     } catch (err) {
         alert(err.response.data.msg || err.response.data[0].message)
@@ -92,60 +98,11 @@ export default function NewUserForm() {
         {errors.password2 && <div className='text-danger'>* Passwords do not match!</div>}
 
         <button className='btn btn-primary mt-3'>Sign Up</button>
+       
       </form >
 
-      {/* <form onSubmit={handleSubmit(onSub)} >
-        <div className='form-row1 d-flex flex-wrap justify-content-around p-2'>
-          <div className='col-md-5'>
-            <input {...fisrtNameRef} type="text" className='form-control' placeholder="First Name" />
-            {errors.firstName && <div className='text-danger'>* Enter a valid name, must contain 2-50 characters!</div>}
-          </div>
-          <div className='col-md-5'>
-            <input {...lastNameRef} type="text" className='form-control' placeholder="Last Name" />
-            {errors.lastName && <div className='text-danger'>* Enter a valid name, must contain 2-50 characters!</div>}
-          </div>
-        </div>
-        <div className='form-row2 d-flex flex-wrap justify-content-around p-2'>
-          <div className='col-md-5'>
-            <input {...emailRef} type="email" className='form-control' placeholder="Email" />
-            {errors.email && <div className='text-danger'>* Enter a valid Email</div>}
-          </div>
-          <div className='col-md-5'>
-            <input {...phoneRef} type="phone" className='form-control' placeholder="Phone" />
-            {errors.phone && <div className='text-danger'>* Enter a valid phone number</div>}
-          </div>
-        </div>
-        <div className='form-row3 d-flex flex-wrap justify-content-around p-2'>
-          <div className='col-md-5'>
-          <select {...locationRef} className='form-select'>
-              <option value="">Select your Location...</option>
-              <option>...</option>
-            </select> */}
-      {/* TODO: get list of citys */}
-      {/* {errors.location && <div className='text-danger'>* You must select a location</div>}
-          </div>
-          <div className='col-md-5'>
-            <select {...schoolRef} className="form-select">
-              <option value="">Select your School...</option>
-              <option>...</option> */}
-      {/* TODO: get list ofschools */}
-      {/* </select>
-            {errors.school && <div className='text-danger'>* You must select a school</div>}
-          </div>
-        </div>
-        <div className='form-row4 d-flex flex-wrap justify-content-around p-2'>
-          <div className='col-md-5'>
-            <input {...passwordRef} type="text" className='form-control' placeholder="Password" />
-            {errors.password && <div className='text-danger'>* Enter a valid Password, must contain 8 characters, at least one uppercase letter, one lowercase letter, one number and one special character!</div>}
-          </div>
-          <div className='col-md-5'>
-            <input {...password2Ref} type="text" className='form-control' placeholder="Re-Enter Password" />
-            {errors.password2 && <div className='text-danger'>* Passwords do not match!</div>}
-          </div>
-        </div>
-        <button className='btn btn-primary mt-3'>Sign Up</button>
-      </form> */}
-
+     
+ <ToastContainer />
     </div >
   )
 }
