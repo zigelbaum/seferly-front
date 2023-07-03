@@ -22,7 +22,7 @@ export default function PageInation(props) {
             let url = API_URL + props.countlUrl;
             let resp = await doApiGet(url);
             console.log((resp.data.count) / 10);
-            setTotalPages(Math.ceil(Number(resp.data.count) / 10))
+            setTotalPages(Math.ceil(Number(resp.data.count) / Number(props.perPage)))
         } catch (err) {
             console.log(err);
             alert("there problem calcPages ,try again later")
@@ -31,7 +31,7 @@ export default function PageInation(props) {
 
     const handleChange = (event, value) => {
         setPage(value);
-        nav(`/${props.navUrl}?page=${value}`)
+        nav(`/${props.navUrl}?page=${value}&perPage=${props.perPage}`)
     };
 
 

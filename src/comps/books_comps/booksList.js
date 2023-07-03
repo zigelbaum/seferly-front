@@ -127,7 +127,7 @@ const helper=async()=>{
         </tbody>
       </table>
       <div className='d-flex justify-content-center'>
-        <PageInation navUrl={"booksList"} countlUrl={"/books/count"} />
+        <PageInation navUrl={"booksList"} countlUrl={"/books/count"} perPage={querys.get("perPage")||10}/>
       </div>
     </div>
   )
