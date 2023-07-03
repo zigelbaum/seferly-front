@@ -67,7 +67,7 @@ export default function UploadsList() {
 
     return (
       
-        <div >
+        <div className='container'>
             <h2>List of uploads</h2>
             <div className="search-wrapper">
                 <label htmlFor="search-form">
