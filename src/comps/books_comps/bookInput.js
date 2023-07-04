@@ -1,20 +1,22 @@
-import React, { useState, useRef, useEffect,useContext } from 'react'
+import React, { useState, useRef, useEffect, useContext } from 'react'
 // import Select from "react-select";
 import SelectSubject from '../inputComps/selectSubject';
 import { getSubjects } from '../../services/helpers';
 import { useForm } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
-import { checkUserAdmin } from '../../services/service'; 
-import { UserContext } from '../../App';
-import { API_URL, doApiMethod } from '../../services/service'
-import SelectGrade from '../inputComps/selectGrade'; 
+import { checkUserAdmin } from '../../services/service';
+// import { UserContext } from '../../App';
+import { API_URL, doApiMethod ,TOKEN_NAME} from '../../services/service'
+import SelectGrade from '../inputComps/selectGrade';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useDispatch } from 'react-redux';
+import { getUserInfo } from '../../features/userSlice';
 
 export default function BookInput() {
 
     const [subjects, setSubjects] = useState([])
-    const {isLogedIn,setLogedIn}= useContext(UserContext);
+    // const { isLogedIn, setLogedIn } = useContext(UserContext);
     const [isAdmin, setIsAdmin] = useState(false);
     const { register, handleSubmit, formState: { errors }, getValues } = useForm();
     const nav = useNavigate();
@@ -22,36 +24,46 @@ export default function BookInput() {
     const [selectedSub, setSelectedSub] = useState("");
     const [selectedGrade, setSelectedGrade] = useState("");
 
-   const subjectRef = useRef();
-   const gradeRef = useRef();
-   const supervisionRef = register("supervision", { required: true, minLength: 2, maxLength: 50 });
-   const nameRef = register("name", { required: true, minLength: 2, maxLength: 50 });
-   const typeRef = register("type", { required: true, minLength: 2, maxLength: 50 });
-   const authorRef = register("author_name", { required: true, minLength: 2, maxLength: 50 });
-   const publisherRef = register("publisher", { required: true, minLength: 2, maxLength: 50 });
-   
-   const getAdmin = async () => {
-    console.log(checkUserAdmin());
-    return (await checkUserAdmin());
-  }
+    const subjectRef = useRef();
+    const gradeRef = useRef();
+    const supervisionRef = register("supervision", { required: true, minLength: 2, maxLength: 50 });
+    const nameRef = register("name", { required: true, minLength: 2, maxLength: 50 });
+    const typeRef = register("type", { required: true, minLength: 2, maxLength: 50 });
+    const authorRef = register("author_name", { required: true, minLength: 2, maxLength: 50 });
+    const publisherRef = register("publisher", { required: true, minLength: 2, maxLength: 50 });
+  //  const { loged } = useSelector((state) => state.userSlice);
+  const dispatch = useDispatch();
+
+    const getAdmin = async () => {
+        console.log(checkUserAdmin());
+        return (await checkUserAdmin());
+    }
 
     useEffect(() => {
-        if(isLogedIn){ //onlu admin can add a new book
-            getAdmin() && getAllSubjects()
-        } else{
-            nav("/*/you must be logged in as an admin!")
+        if (localStorage[TOKEN_NAME] != null) {
+            dispatch(getUserInfo())
+            if (getAdmin()) { //only admin can add a new book
+                getAllSubjects()
+            } else {
+                nav("/*/you must be logged in as an admin!")
+            }
         }
-       
+        else {
+            nav("/*/you are not logged in!")
+        }
+
+
     }, [])
+
 
     const getAllSubjects = async () => {
         let data = await getSubjects();
         console.log(data)
         setSubjects(data);
     }
-    
+
     const onSub = (_dataBody) => {
-        _dataBody.class=selectedGrade;
+        _dataBody.class = selectedGrade;
         _dataBody.subjectId = selectedSub;
         console.log(_dataBody);
         setIsSubmitted(true);
@@ -67,11 +79,11 @@ export default function BookInput() {
             toast.success('Book added successfully !', {
                 position: toast.POSITION.TOP_RIGHT
             });
-            
+
 
         }
         catch (err) {
-        
+
             alert(err.response.data.msg || err.response.data[0].message)
             setIsSubmitted(false);
         }
@@ -81,7 +93,7 @@ export default function BookInput() {
         <div className='container col-md-6'>
             <h2>Add a New Book</h2>
             <form onSubmit={handleSubmit(onSub)}>
-                <SelectGrade  register={register} setSelectedGrade={setSelectedGrade}  gradeRef={gradeRef} />
+                <SelectGrade register={register} setSelectedGrade={setSelectedGrade} gradeRef={gradeRef} />
 
                 {subjects && <SelectSubject register={register} setSelectedSub={setSelectedSub} subjects={subjects} subjectRef={subjectRef} />}
 

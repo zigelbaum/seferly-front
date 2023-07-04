@@ -1,16 +1,20 @@
 import React, { useState, useEffect, useRef, useContext } from 'react'
 import { useForm } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
-import { API_URL, doApiMethod } from '../../services/service'
+import { API_URL, doApiMethod,TOKEN_NAME } from '../../services/service'
 import { getBooksNames } from '../../services/helpers';
 import InputImage from '../inputComps/inputImage';
 import { uploadImage } from '../../services/helpers';
 import SelectBook from '../inputComps/selectBook';
-import { UserContext } from "../../App";
+// import { UserContext } from "../../App";
+import { useDispatch } from 'react-redux';
+//import { logoutUser, loginUser } from '../../features/userSlice';
+// import { useSelector } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { getUserInfo } from '../../features/userSlice';
 
-export default function NewUserForm() {
+export default function NewUploadForm() {
 
 
     const { register, handleSubmit, formState: { errors }, getValues } = useForm();
@@ -20,8 +24,8 @@ export default function NewUserForm() {
     const [isBookSelected, setIsBookSelected] = useState(false);
     const [books, setBooks] = useState([]);
     const [imageSelected, setImageSelected] = useState(null);
-    const { isLogedIn, setLogedIn } = useContext(UserContext);
-
+    // const { isLogedIn, setLogedIn } = useContext(UserContext);
+    const dispatch = useDispatch();
 
     const bookRef = useRef();
 
@@ -29,11 +33,20 @@ export default function NewUserForm() {
     const infoRef = register("info", { maxLength: 400 });
 
     useEffect(() => {
-        if (!isLogedIn) {
-            nav("/*/you must be logged in!")
+        // if (!isLogedIn) {
+        //     nav("/*/you must be logged in!")
+        // }
+        // else {
+        //     getAllBooks();
+        // }
+        //      }
+        
+        if (localStorage[TOKEN_NAME]!=null) {
+            dispatch(getUserInfo())
+            getAllBooks()
         }
         else {
-            getAllBooks();
+            nav("/*/you are not logged in!")
         }
     }, [])
 
@@ -63,7 +76,7 @@ export default function NewUserForm() {
             toast.success('Book added successfully !', {
                 position: toast.POSITION.TOP_RIGHT
             });
-            setTimeout(() =>  nav(`/uploadsList`), 4000);
+            setTimeout(() => nav(`/uploadsList`), 4000);
         }
         catch (err) {
             alert(err.response.data.msg || err.response.data[0].message)

@@ -3,21 +3,25 @@ import { Link } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
 import { API_URL, doApiMethodSignUpLogin, TOKEN_NAME } from '../../services/service'
-import { CircularProgress } from '@mui/material';
 import Button from "@mui/material/Button";
-import { UserContext } from '../../App';
-
+// import { UserContext } from '../../App';
+import { logoutUser, loginUser } from '../../features/userSlice';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { getUserInfo } from "../../features/userSlice";
 
 export default function LoginForm() {
 
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { register, handleSubmit, formState: { errors }, getValues } = useForm();
   const nav = useNavigate();
-  const {isLogedIn,setLogedIn} = useContext(UserContext);
+  // const {isLogedIn,setLogedIn} = useContext(UserContext);
+  const dispatch = useDispatch();
+  
 
   const emailRef = register("email", { required: true, pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i })
   const passwordRef = register("password", { required: true });
-
+  
   const onSub = (dataBody) => {
     setIsSubmitted(true);
     console.log(dataBody);
@@ -30,9 +34,10 @@ export default function LoginForm() {
       const { data } = await doApiMethodSignUpLogin(url, "POST", _dataBody);
       console.log(data);
       if (data.token) {
-        setLogedIn(true);
-        console.log(isLogedIn);
+        // setLogedIn(true);
+        // console.log(isLogedIn);
         localStorage.setItem(TOKEN_NAME,data.token);
+        dispatch(getUserInfo())
         // nav(`/messages/${data.token}`)
         nav('/uploadsList')
       }
