@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useContext } from 'react'
 import { useSearchParams, useNavigate } from 'react-router-dom'
-import { API_URL, doApiGet, TOKEN_NAME} from '../../services/service';
+import { API_URL, doApiGet, TOKEN_NAME } from '../../services/service';
 import { checkUserAdmin } from '../../services/service';
 import BookItem from './bookItem';
 import PageInation from '../general_comps/pageInation';
@@ -136,79 +136,77 @@ export default function BooksList() {
 
 
   return (
-    
-      <div className='container'>
-        <h1 className='text-end '>רשימת ספרי לימוד</h1>
-        <div className="row justify-content-center justify-content-md-between my-3">
-          <div className="col-7 col-md-6 col-lg-5 col-xl-4 ">
 
+    <div className='container d-flex justify-content-center'>
+      <div className='col-md-10 my-3 text-center'>
+    <div className="row justify-content-center justify-content-md-between my-3">
+      <div className="col-7 col-md-6 col-lg-5 col-xl-4  my-3">
+        <label htmlFor="search-form">
+          <input
+            type="search"
+            name="search-form"
+            id="search-form"
+            className="search-input"
+            placeholder="Search for a book..."
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+          />
+        </label>
+      </div>
 
-          <label htmlFor="search-form">
-            <input
-              type="search"
-              name="search-form"
-              id="search-form"
-              className="search-input"
-              placeholder="Search for a book..."
-              value={q}
-              onChange={(e) => setQ(e.target.value)}
-            />
-          </label>
-        </div>
+      <div className="col-5 col-md-4 col-lg-3 my-3">
+        <select
 
-        <div className="col-5 col-md-4 col-lg-3">
-          <select
+          onChange={(e) => {
+            setFilterParam(e.target.value);
+          }}
+          className="custom-select"
+          aria-label="Filter Books By Subject">
+          <option value="All">Filter By Subject</option>
+          {subjects && subjects.map((subject) => (
+            <option value={subject.subject} key={subject._id} className="capitalize text-end">
+              {subject.subject}
+            </option>
+          ))}
 
-            onChange={(e) => {
-              setFilterParam(e.target.value);
-            }}
-            className="custom-select"
-            aria-label="Filter Books By Subject">
-            <option value="All">Filter By Subject</option>
-            {subjects && subjects.map((subject) => (
-              <option value={subject.subject} key={subject._id} className="capitalize text-end">
-                {subject.subject}
-              </option>
-            ))}
+        </select>
+      </div>
 
-          </select>
-        </div>
+      <span className="focus"></span>
 
-        <span className="focus"></span>
+      <table className='table table-striped table-hover text-end'>
+        <thead>
+          <tr>
+            {isAdmin && <th></th>}
+            <th></th>
+            <th>מוציא לאור</th>
+            <th>סופר</th>
+            <th>סוג</th>
+            <th>פיקוח</th>
+            <th>מקצוע</th>
+            <th>כיתה</th>
+            <th>שם</th>
+            {/* <th></th> */}
+          </tr>
+        </thead>
+        <tbody>
+          {search(ar)
+            .map((item, i) => {
+              let isFavored = wishList.includes(item._id);
+              console.log(isFavored);
+              // console.log(item);
+              return (
+                <BookItem key={item._id} doApi={doApi} index={i} item={item} isAdmin={isAdmin} isFavored={isFavored} />
+              );
+            })}
+        </tbody>
+      </table>
 
-        <table className='table table-striped table-hover text-end'>
-          <thead>
-            <tr>
-              {isAdmin && <th></th>}
-              <th></th>
-              <th>מוציא לאור</th>
-              <th>סופר</th>
-              <th>סוג</th>
-              <th>פיקוח</th>
-              <th>מקצוע</th>
-              <th>כיתה</th>
-              <th>שם</th>
-              {/* <th></th> */}
-            </tr>
-          </thead>
-          <tbody>
-            {search(ar)
-              .map((item, i) => {
-                let isFavored = wishList.includes(item._id);
-                console.log(isFavored);
-                // console.log(item);
-                return (
-                  <BookItem key={item._id} doApi={doApi} index={i} item={item} isAdmin={isAdmin} isFavored={isFavored} />
-                );
-              })}
-          </tbody>
-        </table>
-
-        <div className='d-flex justify-content-center'>
-          <PageInation navUrl={"booksList"} countlUrl={"/books/count"} perPage={querys.get("perPage") || 10} />
-        </div>
+      <div className='d-flex justify-content-center'>
+        <PageInation navUrl={"booksList"} countlUrl={"/books/count"} perPage={querys.get("perPage") || 10} />
       </div>
     </div>
-
+    </div >
+</div>
   )
 }

@@ -52,8 +52,9 @@ export default function UsersList() {
 
   return (
     <div>
-      {isAdmin && <div className='container'>
-        <h1>List of users in systems</h1>
+      {isAdmin &&  <div className='container d-flex justify-content-center'>
+        <div className='col-md-10 my-3 text-center'>
+            <h2 className="text-xl my-3">List of Registered Users</h2>
         <table className='table table-striped table-hover'>
           <thead>
             <tr>
@@ -75,6 +76,7 @@ export default function UsersList() {
             })}
           </tbody>
         </table>
+      </div>
       </div>}
     </div>
   )

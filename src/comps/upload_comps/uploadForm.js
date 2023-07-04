@@ -13,6 +13,7 @@ import { useDispatch } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getUserInfo } from '../../features/userSlice';
+import WishListCheck from './wishListCheck';
 
 export default function NewUploadForm() {
 
@@ -72,7 +73,7 @@ export default function NewUploadForm() {
             const { data } = await doApiMethod(url, "POST", _dataBody);
             console.log(data);
             console.log(_dataBody.bookId);
-            //TODO ADD FUNCTION THAT GOES OVER WISHLIST AND SENDS MAILS
+            WishListCheck(_dataBody.bookId)
             toast.success('Book added successfully !', {
                 position: toast.POSITION.TOP_RIGHT
             });
@@ -102,7 +103,7 @@ export default function NewUploadForm() {
                 <textarea {...infoRef} type="text" className='form-control m-2' rows="5" placeholder='...'></textarea>
                 {errors.info && <div className='text-danger'>*The paragraph entered may not exceed 400 characters!</div>}
 
-                <button className='btn btn-primary mt-3'>Save</button>
+                <button className='btn btn-primary mt-3'>Upload</button>
             </form>
             <ToastContainer />
         </div>

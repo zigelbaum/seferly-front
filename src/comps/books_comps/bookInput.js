@@ -89,8 +89,9 @@ export default function BookInput() {
     };
 
     return (<div>
-        {isAdmin && <div className='container col-md-6'>
-            <h2>Add a New Book</h2>
+        {isAdmin &&  <div className='container d-flex justify-content-center'>
+        <div className='col-md-6 my-3 text-center'>
+            <h2 className="text-xl my-3">Add a New Book</h2>
             <form onSubmit={handleSubmit(onSub)}>
                 <SelectGrade register={register} setSelectedGrade={setSelectedGrade} gradeRef={gradeRef} />
 
@@ -111,9 +112,10 @@ export default function BookInput() {
                 <input {...publisherRef} type="text" className='form-control m-2' placeholder="Publisher name" />
                 {errors.publisher && <div className='text-danger'>* Enter a valid publisher  name, must contain 2-50 characters!</div>}
 
-                <button className='btn btn-primary mt-3'>Save</button>
+                <button className='btn btn-primary mt-3'>Add</button>
                 <ToastContainer />
             </form>
+        </div>
         </div>}
     </div>
     )

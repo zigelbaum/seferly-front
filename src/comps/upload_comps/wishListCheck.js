@@ -27,7 +27,7 @@ export default function WishListCheck(props) {
             {
                 wishers.map(item => {
                     return(
-                        <MailSender bookName={item.book_id.name} userName={itam.user_id.fullName.firstName} userEmail={item.user_id.email}/>
+                        <MailSender bookName={item.book_id.name} userName={item.user_id.fullName.firstName} userEmail={item.user_id.email}/>
                     )
                 })}
         </React.Fragment>
