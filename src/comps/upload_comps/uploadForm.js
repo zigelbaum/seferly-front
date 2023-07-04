@@ -57,7 +57,9 @@ export default function NewUserForm() {
             _dataBody.img_url = imageSelected ? await uploadImage(imageSelected) : null;
             const url = API_URL + '/uploads';
             const { data } = await doApiMethod(url, "POST", _dataBody);
-            console.log(data)
+            console.log(data);
+            console.log(_dataBody);
+            //TODO ADD FUNCTION THAT GOES OVER WISHLIST AND SENDS MAILS
             toast.success('Book added successfully !', {
                 position: toast.POSITION.TOP_RIGHT
             });
