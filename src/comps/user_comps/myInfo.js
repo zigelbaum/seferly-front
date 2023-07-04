@@ -42,7 +42,7 @@ export default function MyInfo() {
         else {
             nav("/*/you are not logged in!")
         }
-    },[]
+    }, []
     )
     const fetchData = async () => {
         try {
@@ -130,13 +130,19 @@ export default function MyInfo() {
                             <div className='ms-md-5 ms-2 mt-0 mt-sm-1'>
                                 <h1 className='mb-3 s24 fw-bold'>{userInfo?.fullName?.firstName} {userInfo?.fullName?.lastName}</h1>
                                 <div className='pb-2' style={{ display: "flex" }}>
-                                <div className="h6 mt-2 ms-1 "> Location: {userInfo?.city}</div>
+                                    <div className="h6 mt-2 ms-1 "> Location: {userInfo?.city}</div>
                                     <div onClick={onChangeLocation} style={{ margin: "0 16px", cursor: "pointer" }}>
                                         <EditIcon />
                                     </div>
                                 </div>
                                 <div className='pb-2' style={{ display: "flex" }}>
-                                <div className="h6 mt-2 ms-1 "> Phone number: {  userInfo?.phone}</div>
+                                    <div className="h6 mt-2 ms-1 "> Phone number: {userInfo?.phone}</div>
+                                    <div onClick={onChangePhone} style={{ margin: "0 16px", cursor: "pointer" }}>
+                                        <EditIcon />
+                                    </div>
+                                </div>
+                                <div className='pb-2' style={{ display: "flex" }}>
+                                    <div className="h6 mt-2 ms-1 "> Email: {userInfo?.email}</div>
                                     <div onClick={onChangePhone} style={{ margin: "0 16px", cursor: "pointer" }}>
                                         <EditIcon />
                                     </div>

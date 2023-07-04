@@ -127,10 +127,10 @@ export default function UploadItem(props) {
                                         }}
                                     >
                                         <div className="h6 mt-2 ms-1"> Phone: {item.user_id.phone}</div>
-                                        <div className="h6 mt-2 ms-1">
+                                        {/* <div className="h6 mt-2 ms-1">
                                             Email:{" "}
                                             <a href={`mailto:${item.user_id.email}`} style={{ textDecoration: "underline", color: "blue"}}>{item.user_id.email}</a>
-                                        </div>
+                                        </div> */}
                                         {/* <div className="h6 mt-2 ms-1"> Email: {item.user_id.email}</div> */}
                                     </Popover>
                                 </div>

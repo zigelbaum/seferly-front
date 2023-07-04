@@ -65,7 +65,6 @@ export default function UsersList() {
               <th>City</th>
               <th>Phone</th>
               <th>Active</th>
-              <th>Delete</th>
             </tr>
           </thead>
           <tbody>
