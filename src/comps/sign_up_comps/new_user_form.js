@@ -73,9 +73,9 @@ export default function NewUserForm() {
 
 
   return (
-    
-    <div className='container col-md-6 my-4 '>
-      <h2 >New user form</h2>
+    <div className='container d-flex justify-content-center'>
+    <div className='col-md-6 my-3 text-center'>
+      <h2 className="text-xl my-3">Create an Account </h2>
       <form onSubmit={handleSubmit(onSub)} >
         <input {...firstNameRef} type="text" className='form-control m-2' placeholder="First Name" />
         {errors.firstName && <div className='text-danger'>* Enter a valid name, must contain 2-50 characters!</div>}
@@ -104,5 +104,6 @@ export default function NewUserForm() {
      
  <ToastContainer />
     </div >
+    </div>
   )
 }

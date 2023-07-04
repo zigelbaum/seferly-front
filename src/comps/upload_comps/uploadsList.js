@@ -69,8 +69,8 @@ export default function UploadsList() {
     return (
 
         <div className='container'>
-            <h2>List of uploads</h2>
-            <div className="row justify-content-center justify-content-md-between my-3 ">
+            {/* <h2>List of uploads</h2> */}
+            <div className="row justify-content-center justify-content-md-between my-4">
                 <div className="col-7 col-md-6 col-lg-5 col-xl-4 ">
 
                     <label htmlFor="search-form">
@@ -126,7 +126,7 @@ export default function UploadsList() {
                 <div>
 
                 </div>
-                <Button className="my-3" style={{ color: '#228B22', border: '#228B22 1px solid', width: "100px" }}
+                <Button  style={{ color: '#228B22', border: '#228B22 1px solid', width: "100px" }}
                     onClick={load_more} >Load More</Button>
             </div>
             <Add />

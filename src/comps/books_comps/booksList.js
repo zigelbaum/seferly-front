@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect, useContext } from 'react'
 import { useSearchParams, useNavigate } from 'react-router-dom'
-import { API_URL, doApiGet, TOKEN_NAME } from '../../services/service';
+import { API_URL, doApiGet, TOKEN_NAME} from '../../services/service';
+import { checkUserAdmin } from '../../services/service';
 import BookItem from './bookItem';
 import PageInation from '../general_comps/pageInation';
 // import { UserContext } from '../../App';
@@ -48,7 +49,7 @@ export default function BooksList() {
     if (localStorage[TOKEN_NAME] != null) {
       dispatch(getUserInfo())
       getAllSubjects();
-      setIsAdmin(user.role == "admin")
+      setIsAdmin(getAdmin);
       getMyWishList();
     }
     else {
@@ -96,10 +97,10 @@ export default function BooksList() {
   }
 
 
-  // const getAdmin = async () => {
-  //   console.log(await checkUserAdmin());
-  //   setIsAdmin(await checkUserAdmin());
-  // }
+  const getAdmin = async () => {
+    console.log(await checkUserAdmin());
+    setIsAdmin(await checkUserAdmin());
+  }
 
 
   const getMyWishList = async () => {
@@ -135,11 +136,11 @@ export default function BooksList() {
 
 
   return (
-
-    <div className='container'>
-      <h1 className='text-end '>רשימת ספרי לימוד</h1>
-      <div className="row justify-content-center justify-content-md-between my-3">
-        <div className="col-7 col-md-6 col-lg-5 col-xl-4 ">
+    
+      <div className='container'>
+        <h1 className='text-end '>רשימת ספרי לימוד</h1>
+        <div className="row justify-content-center justify-content-md-between my-3">
+          <div className="col-7 col-md-6 col-lg-5 col-xl-4 ">
 
 
           <label htmlFor="search-form">

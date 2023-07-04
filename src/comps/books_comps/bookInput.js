@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
 import { checkUserAdmin } from '../../services/service';
 // import { UserContext } from '../../App';
-import { API_URL, doApiMethod ,TOKEN_NAME} from '../../services/service'
+import { API_URL, doApiMethod, TOKEN_NAME } from '../../services/service'
 import SelectGrade from '../inputComps/selectGrade';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -31,29 +31,28 @@ export default function BookInput() {
     const typeRef = register("type", { required: true, minLength: 2, maxLength: 50 });
     const authorRef = register("author_name", { required: true, minLength: 2, maxLength: 50 });
     const publisherRef = register("publisher", { required: true, minLength: 2, maxLength: 50 });
-  //  const { loged } = useSelector((state) => state.userSlice);
-  const dispatch = useDispatch();
-
-    const getAdmin = async () => {
-        console.log(checkUserAdmin());
-        return (await checkUserAdmin());
-    }
+    //  const { loged } = useSelector((state) => state.userSlice);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         if (localStorage[TOKEN_NAME] != null) {
             dispatch(getUserInfo())
-            if (getAdmin()) { //only admin can add a new book
-                getAllSubjects()
-            } else {
-                nav("/*/you must be logged in as an admin!")
-            }
+            getAdmin()
         }
         else {
             nav("/*/you are not logged in!")
         }
-
-
     }, [])
+
+    const getAdmin = async () => {
+        console.log(await checkUserAdmin());
+        let adminFlag = (await checkUserAdmin());
+        setIsAdmin(adminFlag);
+        if (adminFlag) { getAllSubjects() }
+        else {
+            nav("/*/you must be an admin to access this page!")
+        }
+    }
 
 
     const getAllSubjects = async () => {
@@ -89,8 +88,8 @@ export default function BookInput() {
         }
     };
 
-    return (
-        <div className='container col-md-6'>
+    return (<div>
+        {isAdmin && <div className='container col-md-6'>
             <h2>Add a New Book</h2>
             <form onSubmit={handleSubmit(onSub)}>
                 <SelectGrade register={register} setSelectedGrade={setSelectedGrade} gradeRef={gradeRef} />
@@ -115,6 +114,7 @@ export default function BookInput() {
                 <button className='btn btn-primary mt-3'>Save</button>
                 <ToastContainer />
             </form>
-        </div>
+        </div>}
+    </div>
     )
 }

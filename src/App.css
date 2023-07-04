@@ -26,9 +26,9 @@ body {
     background-color: gray;
     text-align: center;
     margin-top: auto;
-    padding: 8px;
+    /* padding: 8px; */
   }
  .content-wrap{
-    margin-bottom: 10px;
-    margin-top: 10px;
+    /* margin-bottom: 10px; */
+    /* margin-top: 10px; */
  }

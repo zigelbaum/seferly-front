@@ -86,8 +86,9 @@ export default function NewUploadForm() {
 
 
     return (
-        <div className='container col-md-6'>
-            <h2>Post a Book for Sale</h2>
+        <div className='container d-flex justify-content-center'>
+        <div className='col-md-6 my-3 text-center'>
+            <h2 className="text-xl my-3">Post a Book for Sale</h2>
             <form onSubmit={handleSubmit(onSub)}>
 
                 {books && <SelectBook register={register} setSelectedBook={setSelectedBook} books={books} bookRef={bookRef} />}
@@ -104,6 +105,7 @@ export default function NewUploadForm() {
                 <button className='btn btn-primary mt-3'>Save</button>
             </form>
             <ToastContainer />
+        </div>
         </div>
     )
 }
