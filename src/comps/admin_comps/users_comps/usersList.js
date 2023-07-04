@@ -20,7 +20,7 @@ export default function UsersList() {
     if (localStorage[TOKEN_NAME] != null) {
       dispatch(getUserInfo())
       getAdmin();
-      //doApi();
+
     }
     else {
       nav("/*/you are not logged in!")
