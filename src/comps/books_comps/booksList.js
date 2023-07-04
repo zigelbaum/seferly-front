@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect, useContext } from 'react'
 import { useSearchParams, useNavigate } from 'react-router-dom'
-import { API_URL, doApiGet, TOKEN_NAME } from '../../services/service';
+import { API_URL, doApiGet, TOKEN_NAME} from '../../services/service';
+import { checkUserAdmin } from '../../services/service';
 import BookItem from './bookItem';
 import PageInation from '../general_comps/pageInation';
 // import { UserContext } from '../../App';
@@ -48,7 +49,7 @@ export default function BooksList() {
     if (localStorage[TOKEN_NAME] != null) {
       dispatch(getUserInfo())
       getAllSubjects();
-      setIsAdmin(user.role == "admin")
+      setIsAdmin(getAdmin);
       getMyWishList();
     }
     else {
@@ -96,10 +97,10 @@ export default function BooksList() {
   }
 
 
-  // const getAdmin = async () => {
-  //   console.log(await checkUserAdmin());
-  //   setIsAdmin(await checkUserAdmin());
-  // }
+  const getAdmin = async () => {
+    console.log(await checkUserAdmin());
+    setIsAdmin(await checkUserAdmin());
+  }
 
 
   const getMyWishList = async () => {
