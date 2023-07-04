@@ -71,7 +71,7 @@ export default function NewUploadForm() {
             const url = API_URL + '/uploads';
             const { data } = await doApiMethod(url, "POST", _dataBody);
             console.log(data);
-            console.log(_dataBody);
+            console.log(_dataBody.bookId);
             //TODO ADD FUNCTION THAT GOES OVER WISHLIST AND SENDS MAILS
             toast.success('Book added successfully !', {
                 position: toast.POSITION.TOP_RIGHT

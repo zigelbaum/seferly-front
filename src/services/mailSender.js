@@ -2,16 +2,17 @@ import React, { useEffect } from 'react'
 import emailjs from '@emailjs/browser';
 
 
-export default function MailSender() {
+export default function MailSender(props) {
     
     let templateParams = {
-        name: 'James',
-        notes: 'Check this out!',
-        subject: "there is a new upload that might interset you",
-        user_upload: "user ",
-        message: "just uploaded the book ",
-        book: "book1",
-        user_email: "chanush850@gmail.com"
+        subject: " מודעה חדשה שאולי תעניין אותך",
+        line1: "שלום ",
+        line2: " עלתה עכשיו לאתר מודעה חדשה על הספר",
+        line3: ".שנמצא ברשימת המשאלות שלך, ניתן ללכת לבדוק את זה עכשיו באתר",
+        line4: " Seferly בברכה צוות",
+        name: props.userNmae,
+        book: props.bookName,
+        user_email: props.userEmail
     };
     
     useEffect(() => {

@@ -1,17 +1,35 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { API_URL, doApiGet } from '../../services/service'
+import MailSender from '../../services/mailSender';
 
-export default function WishListCheck() {
+export default function WishListCheck(props) {
 
-    useEffect(()=>{
+    const [wishers, setWishers] = useState([]);
+
+    useEffect(() => {
         doApi();
-    },[])
+    }, [])
 
     const doApi = async () => {
-        let url = API_URL + ""
+        let url = API_URL + "/wishes/bookWishes" + props.bookId;
+        try {
+            let data = await doApiGet(url);
+            setWishers(data);
+            console.log(data);
+        } catch (err) {
+            console.log(err);
+            alert("there problem doApi - wishList for book ,try again later")
+        }
     }
 
-  return (
-    <React.Fragment></React.Fragment>
-  )
+    return (
+        <React.Fragment>
+            {
+                wishers.map(item => {
+                    return(
+                        <MailSender bookName={item.book_id.name} userName={itam.user_id.fullName.firstName} userEmail={item.user_id.email}/>
+                    )
+                })}
+        </React.Fragment>
+    )
 }
