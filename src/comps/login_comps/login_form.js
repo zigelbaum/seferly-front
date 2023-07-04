@@ -2,7 +2,7 @@ import React, { useState ,useContext} from 'react'
 import { Link } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
-import { API_URL, doApiMethodSignUpLogin } from '../../services/service'
+import { API_URL, doApiMethodSignUpLogin, TOKEN_NAME } from '../../services/service'
 import { CircularProgress } from '@mui/material';
 import Button from "@mui/material/Button";
 import { UserContext } from '../../App';
@@ -32,8 +32,9 @@ export default function LoginForm() {
       if (data.token) {
         setLogedIn(true);
         console.log(isLogedIn);
-        nav(`/messages/${data.token}`)
-        //nav('/uploadsList')
+        localStorage.setItem(TOKEN_NAME,data.token);
+        // nav(`/messages/${data.token}`)
+        nav('/uploadsList')
       }
     } catch (err) {
       alert(err.response.data.msg || err.response.data[0].message)
