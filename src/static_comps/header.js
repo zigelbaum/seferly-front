@@ -13,7 +13,7 @@ export default function Header() {
           </div>
               
               <div className='d-none d-md-flex'>
-                <Link to="/uploadsList">Home</Link>
+                <Link to="/uploadsList">Posts</Link>
               </div>
               <div className='d-none d-md-flex'>
                 <Link to="/usersList">Users</Link>
