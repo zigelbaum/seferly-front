@@ -1,20 +1,20 @@
 import React, { useState, useEffect, useRef, useContext } from 'react'
 import { useForm } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
-import { API_URL, doApiMethod } from '../../services/service'
+import { API_URL, doApiMethod,TOKEN_NAME } from '../../services/service'
 import { getBooksNames } from '../../services/helpers';
 import InputImage from '../inputComps/inputImage';
 import { uploadImage } from '../../services/helpers';
 import SelectBook from '../inputComps/selectBook';
 // import { UserContext } from "../../App";
 import { useDispatch } from 'react-redux';
-import { logoutUser, loginUser } from '../../features/userSlice';
-import { useSelector } from 'react-redux';
+//import { logoutUser, loginUser } from '../../features/userSlice';
+// import { useSelector } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getUserInfo } from '../../features/userSlice';
 
-export default function NewUserForm() {
+export default function NewUploadForm() {
 
 
     const { register, handleSubmit, formState: { errors }, getValues } = useForm();
@@ -26,7 +26,6 @@ export default function NewUserForm() {
     const [imageSelected, setImageSelected] = useState(null);
     // const { isLogedIn, setLogedIn } = useContext(UserContext);
     const dispatch = useDispatch();
-    const { loged } = useSelector((state) => state.userSlice);
 
     const bookRef = useRef();
 
@@ -41,11 +40,11 @@ export default function NewUserForm() {
         //     getAllBooks();
         // }
         //      }
-        dispatch(getUserInfo())
-        if (loged) {
+        
+        if (localStorage[TOKEN_NAME]!=null) {
+            dispatch(getUserInfo())
             getAllBooks()
         }
-
         else {
             nav("/*/you are not logged in!")
         }
@@ -71,7 +70,9 @@ export default function NewUserForm() {
             _dataBody.img_url = imageSelected ? await uploadImage(imageSelected) : null;
             const url = API_URL + '/uploads';
             const { data } = await doApiMethod(url, "POST", _dataBody);
-            console.log(data)
+            console.log(data);
+            console.log(_dataBody);
+            //TODO ADD FUNCTION THAT GOES OVER WISHLIST AND SENDS MAILS
             toast.success('Book added successfully !', {
                 position: toast.POSITION.TOP_RIGHT
             });

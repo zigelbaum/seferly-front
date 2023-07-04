@@ -1,22 +1,25 @@
 import React, { useState, useRef, useEffect, useContext } from 'react'
 import { useSearchParams, useNavigate } from 'react-router-dom'
-import { API_URL, doApiGet, checkUserAdmin } from '../../services/service';
+import { API_URL, doApiGet, TOKEN_NAME} from '../../services/service';
+import { checkUserAdmin } from '../../services/service';
 import BookItem from './bookItem';
 import PageInation from '../general_comps/pageInation';
-import { UserContext } from '../../App';
+// import { UserContext } from '../../App';
 import { getSubjects } from '../../services/helpers';
-import { IconButton, Popover } from "@mui/material";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+// import { IconButton, Popover } from "@mui/material";
+// import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import "../../App.css"
 import "../upload_comps/uploadsList.css"
+import { useSelector, useDispatch } from 'react-redux';
+import { getUserInfo } from '../../features/userSlice';
 
 export default function BooksList() {
   const [ar, setAr] = useState([]);
-  const [books, setBooks] = useState([]);
-  const { isLogedIn, setLogedIn } = useContext(UserContext);
-  const [isAdmin, setIsAdmin] = useState(false);
+  // const [books, setBooks] = useState([]);
+  // const { isLogedIn, setLogedIn } = useContext(UserContext);
+  // const [isAdmin, setIsAdmin] = useState(false);
   const [querys] = useSearchParams();
-  const [isHovered, setIsHovered] = useState(false);
+  // const [isHovered, setIsHovered] = useState(false);
   const [subjects, setSubjects] = useState([])
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [wishList, setWishList] = useState([]);
@@ -25,22 +28,44 @@ export default function BooksList() {
   const [filterParam, setFilterParam] = useState(["All"]);
   const [q, setQ] = useState("");//for the search query
 
+  // const { loged } = useSelector((state) => state.userSlice);
+  const { user } = useSelector((state) => state.userSlice);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const dispatch = useDispatch();
 
   const open = Boolean(anchorEl);
   const ref = useRef()
   const nav = useNavigate();
 
-
-
   useEffect(() => {
-    if (isLogedIn) {
+    // if (!isLogedIn) {
+    //     nav("/*/you must be logged in!")
+    // }
+    // else {
+    //     getAllBooks();
+    // }
+    //      }
+
+    if (localStorage[TOKEN_NAME] != null) {
+      dispatch(getUserInfo())
       getAllSubjects();
-      getAdmin();
+      setIsAdmin(getAdmin);
       getMyWishList();
-    } else {
-      nav("/*/you must be logged in!");
+    }
+    else {
+      nav("/*/you are not logged in!")
     }
   }, [])
+
+  // useEffect(() => {
+  //   if (isLogedIn) {
+  //     getAllSubjects();
+  //     getAdmin();
+  //     getMyWishList();
+  //   } else {
+  //     nav("/*/you must be logged in!");
+  //   }
+  // }, [])
 
 
   useEffect(() => {
@@ -112,27 +137,26 @@ export default function BooksList() {
 
   return (
     
-    <div className='container d-flex justify-content-center'>
-    <div className='col-md-6 my-3 text-center'>
-      <h2 className="text-xl my-3">Create an Account </h2>
+      <div className='container'>
+        <h1 className='text-end '>רשימת ספרי לימוד</h1>
         <div className="row justify-content-center justify-content-md-between my-3">
           <div className="col-7 col-md-6 col-lg-5 col-xl-4 ">
 
-         
-              <label htmlFor="search-form">
-                <input
-                  type="search"
-                  name="search-form"
-                  id="search-form"
-                  className="search-input"
-                  placeholder="Search for a book..."
-                  value={q}
-                  onChange={(e) => setQ(e.target.value)}
-                />
-              </label>
-            </div>
-       
-            <div className="col-5 col-md-4 col-lg-3">
+
+          <label htmlFor="search-form">
+            <input
+              type="search"
+              name="search-form"
+              id="search-form"
+              className="search-input"
+              placeholder="Search for a book..."
+              value={q}
+              onChange={(e) => setQ(e.target.value)}
+            />
+          </label>
+        </div>
+
+        <div className="col-5 col-md-4 col-lg-3">
           <select
 
             onChange={(e) => {
@@ -148,44 +172,43 @@ export default function BooksList() {
             ))}
 
           </select>
-          </div>
+        </div>
 
-          <span className="focus"></span>
+        <span className="focus"></span>
 
-          <table className='table table-striped table-hover text-end'>
-            <thead>
-              <tr>
-                {isAdmin && <th></th>}
-                <th></th>
-                <th>מוציא לאור</th>
-                <th>סופר</th>
-                <th>סוג</th>
-                <th>פיקוח</th>
-                <th>מקצוע</th>
-                <th>כיתה</th>
-                <th>שם</th>
-                {/* <th></th> */}
-              </tr>
-            </thead>
-            <tbody>
-              {search(ar)
-                .map((item, i) => {
-                  let isFavored = wishList.includes(item._id);
-                  console.log(isFavored);
-                  // console.log(item);
-                  return (
-                    <BookItem key={item._id} doApi={doApi} index={i} item={item} isAdmin={isAdmin} isFavored={isFavored} />
-                  );
-                })}
-            </tbody>
-          </table>
+        <table className='table table-striped table-hover text-end'>
+          <thead>
+            <tr>
+              {isAdmin && <th></th>}
+              <th></th>
+              <th>מוציא לאור</th>
+              <th>סופר</th>
+              <th>סוג</th>
+              <th>פיקוח</th>
+              <th>מקצוע</th>
+              <th>כיתה</th>
+              <th>שם</th>
+              {/* <th></th> */}
+            </tr>
+          </thead>
+          <tbody>
+            {search(ar)
+              .map((item, i) => {
+                let isFavored = wishList.includes(item._id);
+                console.log(isFavored);
+                // console.log(item);
+                return (
+                  <BookItem key={item._id} doApi={doApi} index={i} item={item} isAdmin={isAdmin} isFavored={isFavored} />
+                );
+              })}
+          </tbody>
+        </table>
 
-          <div className='d-flex justify-content-center'>
-            <PageInation navUrl={"booksList"} countlUrl={"/books/count"} perPage={querys.get("perPage") || 10} />
-          </div>
+        <div className='d-flex justify-content-center'>
+          <PageInation navUrl={"booksList"} countlUrl={"/books/count"} perPage={querys.get("perPage") || 10} />
         </div>
       </div>
+    </div>
 
-   </div>
-      )
+  )
 }

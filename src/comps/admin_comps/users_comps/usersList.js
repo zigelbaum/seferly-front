@@ -1,23 +1,41 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { API_URL, doApiGet } from '../../../services/service';
-import CheckAdminComp from '../checkAdminComp'
+import { API_URL, TOKEN_NAME, doApiGet, checkUserAdmin } from '../../../services/service';
+//import CheckAdminComp from '../checkAdminComp'
 import UserItem from './userItem';
-import { UserContext } from '../../../App';
+//import { UserContext } from '../../../App';
 import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserInfo } from '../../../features/userSlice';
 
 export default function UsersList() {
   const [ar, setAr] = useState([]);
-  const {isLogedIn,setLogedIn}= useContext(UserContext);
+  // const { isLogedIn, setLogedIn } = useContext(UserContext);
   const nav = useNavigate();
+  const dispatch = useDispatch();
+  const { loged } = useSelector((state) => state.userSlice);
+  const { user } = useSelector((state) => state.userSlice);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    if (!isLogedIn) {
-      nav("/*/you must be logged in!");
+    if (localStorage[TOKEN_NAME] != null) {
+      dispatch(getUserInfo())
+      getAdmin();
+
     }
     else {
-      doApi();
+      nav("/*/you are not logged in!")
     }
   }, [])
+
+  const getAdmin = async () => {
+    console.log(await checkUserAdmin());
+    let adminFlag=(await checkUserAdmin());
+    setIsAdmin(adminFlag);
+    if (adminFlag) { console.log("1"); doApi() }
+    else {
+      nav("/*/you must be an admin to access this page!")
+    }
+  }
 
   const doApi = async () => {
     let url = API_URL + "/users/usersList";
@@ -29,35 +47,35 @@ export default function UsersList() {
     catch (err) {
       console.log(err);
     }
-
   }
 
 
   return (
-    isLogedIn && <div className='container'>
-      <CheckAdminComp/>
-      <h1>List of users in systems</h1>
-      <table className='table table-striped table-hover'>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Role</th>
-            <th>City</th>
-            <th>Phone</th>
-            <th>Active</th>
-            <th>Delete</th>
-          </tr>
-        </thead>
-        <tbody>
-          {ar.map((item, i) => {
-            return (
-              <UserItem key={item._id} doApi={doApi} index={i} item={item} />
-            )
-          })}
-        </tbody>
-      </table>
+    <div>
+      {isAdmin && <div className='container'>
+        <h1>List of users in systems</h1>
+        <table className='table table-striped table-hover'>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th>City</th>
+              <th>Phone</th>
+              <th>Active</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {ar.map((item, i) => {
+              return (
+                <UserItem key={item._id} doApi={doApi} index={i} item={item} />
+              )
+            })}
+          </tbody>
+        </table>
+      </div>}
     </div>
   )
 }

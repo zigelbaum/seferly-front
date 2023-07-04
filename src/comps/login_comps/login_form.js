@@ -21,7 +21,7 @@ export default function LoginForm() {
 
   const emailRef = register("email", { required: true, pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i })
   const passwordRef = register("password", { required: true });
-
+  
   const onSub = (dataBody) => {
     setIsSubmitted(true);
     console.log(dataBody);
