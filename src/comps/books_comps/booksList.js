@@ -112,8 +112,9 @@ export default function BooksList() {
 
   return (
     
-      <div className='container'>
-        <h1 className='text-end '>רשימת ספרי לימוד</h1>
+    <div className='container d-flex justify-content-center'>
+    <div className='col-md-6 my-3 text-center'>
+      <h2 className="text-xl my-3">Create an Account </h2>
         <div className="row justify-content-center justify-content-md-between my-3">
           <div className="col-7 col-md-6 col-lg-5 col-xl-4 ">
 
@@ -184,6 +185,7 @@ export default function BooksList() {
           </div>
         </div>
       </div>
-   
+
+   </div>
       )
 }
