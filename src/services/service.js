@@ -65,7 +65,11 @@ export const checkUserAdmin = async () => {
     let resp = await doApiGet(url);
     return resp.data.role === "admin"
 }
-
+export const checkUserToken = async () => {//return user token
+    let url = API_URL + "/users/checkToken"
+    let resp = await doApiGet(url);
+    return resp;
+}
 
 export const checkLogedIn = async () => {
     return localStorage.getItem(TOKEN_NAME) != null

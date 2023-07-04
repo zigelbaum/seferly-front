@@ -17,15 +17,17 @@ import React, { useState, useMemo } from 'react';
 import Logout from './comps/login_comps/logout';
 import BookInput from './comps/books_comps/bookInput';
 import MyInfo from './comps/user_comps/myInfo';
-
+import { Provider } from 'react-redux';
+import myStore from './features/myStore';
 export const UserContext = React.createContext()
 
 function App() {
 
-  const [isLogedIn, setLogedIn] = useState(false);
+  // const [isLogedIn, setLogedIn] = useState(false);
 
   return (
-    < UserContext.Provider value={{ isLogedIn, setLogedIn }} >
+    <Provider store={myStore}>
+    {/* // < UserContext.Provider value={{ isLogedIn, setLogedIn }} > */}
       <BrowserRouter>
         <div className='App'>
           <Header />
@@ -50,7 +52,8 @@ function App() {
           <Footer className="footer" />
         </div>
       </BrowserRouter >
-    </UserContext.Provider>
+    {/* // </UserContext.Provider> */}
+    </Provider>
 
   );
 }
