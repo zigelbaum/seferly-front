@@ -14,7 +14,6 @@ export const getUserInfo = createAsyncThunk(
                 return null
             }
 
-
         } else {
             return null;
         }
@@ -41,21 +40,25 @@ const userSlice = createSlice({
                     state.status = "failed";
                     state.loged=false;
                     state.user = null
+                    console.log("1");
                 } else if (action.payload == null) {
                     state.user = null;
                     state.status = "failed";
                     state.loged=false;
+                    console.log("2");
                 }
 
                 else {
                     state.user = { ...action.payload };
                     state.loged=true;
+                    console.log("3");
 
                 }
             })
             .addCase(getUserInfo.rejected, (state, action) => {
                 state.status = "failed";
                 state.loged=false
+                console.log("4");
             })
     },
     reducers: {

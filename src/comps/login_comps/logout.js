@@ -25,14 +25,14 @@ const Logout = () => {
 
     //   else{ nav("/*/you are not logged in!")
     //      }
-    dispatch(getUserInfo())
-    if (loged) {
+    if (localStorage[TOKEN_NAME] != null) {
+      dispatch(getUserInfo())
       disconnected()
     }
-
     else {
       nav("/*/you are not logged in!")
     }
+
 
   }, [])
 
