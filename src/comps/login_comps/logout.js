@@ -43,7 +43,7 @@ const Logout = () => {
     toast.success('You have logged out', {
       position: toast.POSITION.TOP_RIGHT
     });
-    setTimeout(() => nav(`/login`), 4000);
+    setTimeout(() => nav(`/login`), 2000);
   }
 
   return (
