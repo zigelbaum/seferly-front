@@ -13,17 +13,22 @@ import Header from './static_comps/header';
 import Footer from './static_comps/footer';
 import NotFound from './comps/general_comps/notFound';
 import UploadForm from './comps/upload_comps/uploadForm';
-import React, { useState, useMemo } from 'react';
+import React, { useState, useEffect,useMemo } from 'react';
 import Logout from './comps/login_comps/logout';
 import BookInput from './comps/books_comps/bookInput';
 import MyInfo from './comps/user_comps/myInfo';
 import { Provider } from 'react-redux';
 import myStore from './features/myStore';
+import { useDispatch } from 'react-redux';
+import { getUserInfo } from './features/userSlice';
 export const UserContext = React.createContext()
 
 function App() {
-
+//  const dispatch=useDispatch()
   // const [isLogedIn, setLogedIn] = useState(false);
+//  useEffect(()=>{
+//    dispatch(getUserInfo())
+// },[])
 
   return (
     <Provider store={myStore}>

@@ -8,7 +8,7 @@ export const getUserInfo = createAsyncThunk(
         if (localStorage.getItem(TOKEN_NAME)) {
             let data = await checkUserToken()
             if (!data.err) {
-
+                console.log(data)
                 return data.data;
             } else {
                 return null
@@ -25,7 +25,7 @@ const userSlice = createSlice({
     initialState: {
         user: null,
         status: null,
-        loged:null
+        loged:false
 
     },
     extraReducers(builder) {
