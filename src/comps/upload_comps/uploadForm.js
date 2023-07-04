@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useContext } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useForm } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
 import { API_URL, doApiMethod,TOKEN_NAME } from '../../services/service'
@@ -6,13 +6,11 @@ import { getBooksNames } from '../../services/helpers';
 import InputImage from '../inputComps/inputImage';
 import { uploadImage } from '../../services/helpers';
 import SelectBook from '../inputComps/selectBook';
-// import { UserContext } from "../../App";
 import { useDispatch } from 'react-redux';
-//import { logoutUser, loginUser } from '../../features/userSlice';
-// import { useSelector } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getUserInfo } from '../../features/userSlice';
+import { doApiWish } from './wishList';
 
 export default function NewUploadForm() {
 
@@ -24,7 +22,6 @@ export default function NewUploadForm() {
     const [isBookSelected, setIsBookSelected] = useState(false);
     const [books, setBooks] = useState([]);
     const [imageSelected, setImageSelected] = useState(null);
-    // const { isLogedIn, setLogedIn } = useContext(UserContext);
     const dispatch = useDispatch();
 
     const bookRef = useRef();
@@ -33,20 +30,16 @@ export default function NewUploadForm() {
     const infoRef = register("info", { maxLength: 400 });
 
     useEffect(() => {
-        // if (!isLogedIn) {
-        //     nav("/*/you must be logged in!")
-        // }
-        // else {
-        //     getAllBooks();
-        // }
-        //      }
         
         if (localStorage[TOKEN_NAME]!=null) {
             dispatch(getUserInfo())
             getAllBooks()
         }
         else {
-            nav("/*/you are not logged in!")
+            toast.success('You are not loged in, please log in and try again', {
+                position: toast.POSITION.TOP_RIGHT
+            });
+            setTimeout(() => nav(`/uploadsList`), 4000);
         }
     }, [])
 
@@ -72,7 +65,7 @@ export default function NewUploadForm() {
             const { data } = await doApiMethod(url, "POST", _dataBody);
             console.log(data);
             console.log(_dataBody.bookId);
-            //TODO ADD FUNCTION THAT GOES OVER WISHLIST AND SENDS MAILS
+            doApiWish(_dataBody.bookId)
             toast.success('Book added successfully !', {
                 position: toast.POSITION.TOP_RIGHT
             });

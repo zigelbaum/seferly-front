@@ -96,7 +96,6 @@ export default function BookItem(props) {
       <td>{item.subjectId.subject}</td>
       <td>{item.class}</td>
       <td>{item.name}</td>
-      {/* <td>{props.index + 1}</td> */}
     </tr>
   )
 }

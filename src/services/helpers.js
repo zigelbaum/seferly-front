@@ -1,7 +1,6 @@
 import axios from 'axios'
 import { doApiGet, API_URL } from './service'
 
-// const citiesAPI = 'https://data.gov.il/api/3/action/datastore_search'
 
 export const getCities = async (_country) => {
     const { data } = await axios.post(
@@ -30,9 +29,6 @@ export const getSubjects = async () => {
     }
 }
  
-// export const getWishList = async () => {
-    
-// }
 
 export const uploadImage = async (file) => {
     if (file == "" || file == null || file == undefined) {
