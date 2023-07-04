@@ -1,26 +1,26 @@
 import React, { useState, useEffect } from 'react'
 import { Modal } from 'react-bootstrap';
-
+import DeleteIcon from '@mui/icons-material/Delete';
 import { Avatar, Button, IconButton, Popover } from "@mui/material";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Event, FmdGood, Sell } from '@mui/icons-material';
-import DateObject from "react-date-object";
 import "./uploadItem.css";
 
 export default function UploadItem(props) {
     let item = props.item;
     const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
     const [datePublished, setDatePublished] = useState(null);
     const [isHovered, setIsHovered] = useState(false);
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const [myPosts] = useState(props.myPosts)
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
     const open = Boolean(anchorEl);
 
     const isFieldEmpty = (_field) => {
         return _field === undefined || _field === null || _field === "";
     }
+
     useEffect(() => {
 
         const date = new Date(item.date_created)
@@ -31,6 +31,10 @@ export default function UploadItem(props) {
         const formattedDate = date.toLocaleDateString(undefined, options);
         setDatePublished(formattedDate)
     }, [])
+
+    const onDelClick = () => {
+        console.log("delClick")
+    }
 
     return (
         <div className="mainDiv p-0">
@@ -64,22 +68,11 @@ export default function UploadItem(props) {
                             </div>
                         </div>
 
-                        <div>
-                            <IconButton
-                                // onClick={() => {
-                                //     onLikeClick(item._id, user._id);
-                                // }}
-                                sx={{ width: 33, height: 33 }}
-                                aria-label="add to favorites"
-                            >
-                                <FavoriteBorderIcon />
-                                {/* {!item.likes.includes(user._id) ? (
-                                    <FavoriteBorderIcon />
-                                ) : (
-                                    <FavoriteIcon sx={{ color: "red" }} />
-                                )} */}
+                        {myPosts && <div>
+                            <IconButton onClick={(e) => { e.stopPropagation(); onDelClick(); }}>
+                                <DeleteIcon sx={{ width: 33, height: 33 }}/>
                             </IconButton>
-                        </div>
+                        </div>}
                     </div>
                     <div className="h6 mt-2 ms-1">{item.bookId.name}</div>
                     <div className='text-muted ms-1'>{item.price} NIS</div>
@@ -161,7 +154,7 @@ export default function UploadItem(props) {
                     <div >
                         <div className='h4 '>About The Book</div>
                         <div><strong>Title:</strong> {item.bookId.name}</div>
-                        {!isFieldEmpty(item.bookId.subjectId.subject)&&<div><strong>Subject:</strong> {item.bookId.subjectId.subject}</div>}
+                        {!isFieldEmpty(item.bookId.subjectId.subject) && <div><strong>Subject:</strong> {item.bookId.subjectId.subject}</div>}
                         {!isFieldEmpty(item.bookId.type) && <div><strong>Type:</strong> {item.bookId.type}</div>}
                         {!isFieldEmpty(item.bookId.supervision) && <div><strong>Supervision:</strong> {item.bookId.supervision}</div>}
                         {!isFieldEmpty(item.bookId.author_name) && <div><strong>Author:</strong> {item.bookId.author_name}</div>}

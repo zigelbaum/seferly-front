@@ -1,5 +1,4 @@
 import React from 'react'
-// import MyDetails from './myDetails';
 import MyPostsList from './myPostsList';
 
 export default function NavBarMyProfile({setShowPosts,showPosts,values,setValues,clickOnPosts,setShowInfo,showInfo}) {

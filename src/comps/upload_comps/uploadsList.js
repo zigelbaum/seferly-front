@@ -114,7 +114,7 @@ export default function UploadsList() {
                     .map(item => {
                         console.log(item)
                         return (
-                            <UploadItem key={item._id} item={item} />
+                            <UploadItem key={item._id} item={item} myPosts={false}/>
                         )
                     })}
                 {ar.length < 1 &&

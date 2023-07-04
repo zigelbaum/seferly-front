@@ -50,7 +50,7 @@ export default function MyPostsList() {
             <div className='row justify-content-center'>
                 {items.map((item) => {
                     return (
-                        <UploadItem key={item._id} item={item} />
+                        <UploadItem key={item._id} item={item} myPosts={true}/>
                     )
                 })}
                 {(loading) && (

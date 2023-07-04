@@ -13,7 +13,7 @@ export default function BookItem(props) {
   const [isFavored, setIsFavored] = useState(props.isFavored);
 
 
-  useEffect(() => {}, [isFavored])
+  useEffect(() => { }, [isFavored])
 
 
   const onDelClick = async () => {
