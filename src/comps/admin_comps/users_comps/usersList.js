@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { API_URL, TOKEN_NAME, doApiGet } from '../../../services/service';
+import { API_URL, TOKEN_NAME, doApiGet, checkUserAdmin } from '../../../services/service';
 //import CheckAdminComp from '../checkAdminComp'
 import UserItem from './userItem';
 //import { UserContext } from '../../../App';
@@ -19,21 +19,23 @@ export default function UsersList() {
   useEffect(() => {
     if (localStorage[TOKEN_NAME] != null) {
       dispatch(getUserInfo())
+      getAdmin();
+      //doApi();
     }
     else {
       nav("/*/you are not logged in!")
     }
   }, [])
 
-  useEffect(() => {
-    if (loged) {
-      setIsAdmin(user.role == "admin")
-      if (isAdmin) { doApi() }
-      else {
-        nav("/*/you must be an admin to access this page!")
-      }
+  const getAdmin = async () => {
+    console.log(await checkUserAdmin());
+    let adminFlag=(await checkUserAdmin());
+    setIsAdmin(adminFlag);
+    if (adminFlag) { console.log("1"); doApi() }
+    else {
+      nav("/*/you must be an admin to access this page!")
     }
-  }, [])
+  }
 
   const doApi = async () => {
     let url = API_URL + "/users/usersList";
@@ -44,16 +46,13 @@ export default function UsersList() {
     }
     catch (err) {
       console.log(err);
-
     }
-
   }
 
 
   return (
     <div>
-      {loged && isAdmin && <div className='container'>
-        {/* <CheckAdminComp /> */}
+      {isAdmin && <div className='container'>
         <h1>List of users in systems</h1>
         <table className='table table-striped table-hover'>
           <thead>
@@ -76,6 +75,7 @@ export default function UsersList() {
             })}
           </tbody>
         </table>
-      </div>}</div>
+      </div>}
+    </div>
   )
 }
