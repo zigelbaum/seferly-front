@@ -70,7 +70,7 @@ export default function UploadItem(props) {
 
                         {myPosts && <div>
                             <IconButton onClick={(e) => { e.stopPropagation(); onDelClick(); }}>
-                                <DeleteIcon sx={{ width: 33, height: 33 }}/>
+                                <DeleteIcon sx={{ width: 33, height: 33 }} />
                             </IconButton>
                         </div>}
                     </div>
@@ -127,7 +127,11 @@ export default function UploadItem(props) {
                                         }}
                                     >
                                         <div className="h6 mt-2 ms-1"> Phone: {item.user_id.phone}</div>
-                                        <div className="h6 mt-2 ms-1"> Email: {item.user_id.email}</div>
+                                        <div className="h6 mt-2 ms-1">
+                                            Email:{" "}
+                                            <a href={`mailto:${item.user_id.email}`} style={{ textDecoration: "underline", color: "blue"}}>{item.user_id.email}</a>
+                                        </div>
+                                        {/* <div className="h6 mt-2 ms-1"> Email: {item.user_id.email}</div> */}
                                     </Popover>
                                 </div>
 

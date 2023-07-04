@@ -11,11 +11,12 @@ export default function Header() {
           <div className="logo col-auto">
             <h2><Link to="/"><Logo margin={"mb-5"} /></Link></h2>
           </div>
-              <div className='d-none d-md-flex'>
-                <Link to="/usersList">Users</Link>
-              </div>
+              
               <div className='d-none d-md-flex'>
                 <Link to="/uploadsList">Home</Link>
+              </div>
+              <div className='d-none d-md-flex'>
+                <Link to="/usersList">Users</Link>
               </div>
               {/* <div className='d-none d-md-flex'>
                 <Link to="/uploadForm">upload form</Link>

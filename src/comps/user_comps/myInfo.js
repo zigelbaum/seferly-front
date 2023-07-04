@@ -128,15 +128,15 @@ export default function MyInfo() {
                                 />
                             </div>
                             <div className='ms-md-5 ms-2 mt-0 mt-sm-1'>
-                                <h2 className='mb-3 s24'>{userInfo?.fullName?.firstName} {userInfo?.fullName?.lastName}</h2>
+                                <h1 className='mb-3 s24 fw-bold'>{userInfo?.fullName?.firstName} {userInfo?.fullName?.lastName}</h1>
                                 <div className='pb-2' style={{ display: "flex" }}>
-                                    <span className='fw-bold'>{'Location: '}</span>{' '}{userInfo?.city}
+                                <div className="h6 mt-2 ms-1 "> Location: {userInfo?.city}</div>
                                     <div onClick={onChangeLocation} style={{ margin: "0 16px", cursor: "pointer" }}>
                                         <EditIcon />
                                     </div>
                                 </div>
                                 <div className='pb-2' style={{ display: "flex" }}>
-                                    <span className='fw-bold'>{"Phone number:"}</span><span>{" "}</span>{  userInfo?.phone}
+                                <div className="h6 mt-2 ms-1 "> Phone number: {  userInfo?.phone}</div>
                                     <div onClick={onChangePhone} style={{ margin: "0 16px", cursor: "pointer" }}>
                                         <EditIcon />
                                     </div>

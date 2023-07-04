@@ -79,7 +79,7 @@ export default function UploadsList() {
                             type="search"
                             name="search-form"
                             id="search-form"
-                            className="search-input"
+                            className="search-input "
                             placeholder="Search for a book..."
                             value={q}
                             onChange={(e) => setQ(e.target.value)}
