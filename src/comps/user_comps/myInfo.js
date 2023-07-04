@@ -110,7 +110,7 @@ export default function MyInfo() {
                 </div>
             ) : (
                 <div>
-                    <div className='container mt-5'>
+                    <div className='container d-flex justify-content-center mt-5'>
 
                         <div className='d-flex'>
                             <div className='d-none d-sm-block'>
@@ -136,7 +136,7 @@ export default function MyInfo() {
                                     </div>
                                 </div>
                                 <div className='pb-2' style={{ display: "flex" }}>
-                                    <span className='fw-bold'>{'Phone number: '}</span>{' '}{userInfo?.phone}
+                                    <span className='fw-bold'>{"Phone number:"}</span><span>{" "}</span>{  userInfo?.phone}
                                     <div onClick={onChangePhone} style={{ margin: "0 16px", cursor: "pointer" }}>
                                         <EditIcon />
                                     </div>
@@ -148,13 +148,13 @@ export default function MyInfo() {
                                     </div>
                                 </div>
                             </div>
-                            <div className='col text-end'>
+                            {/* <div className='col text-end'>
                                 <Tooltip title={"Edit"} >
                                     <IconButton onClick={() => { nav("/editMyDetails") }} sx={{ border: "gray 0.5px solid" }}>
                                         <SettingsIcon />
                                     </IconButton>
                                 </Tooltip>
-                            </div>
+                            </div> */}
                         </div>
                     </div >
 

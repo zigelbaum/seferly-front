@@ -95,7 +95,7 @@ export default function NewUploadForm() {
                 <textarea {...infoRef} type="text" className='form-control m-2' rows="5" placeholder='...'></textarea>
                 {errors.info && <div className='text-danger'>*The paragraph entered may not exceed 400 characters!</div>}
 
-                <button className='btn btn-primary mt-3'>Save</button>
+                <button className='btn btn-primary mt-3'>Upload</button>
             </form>
             <ToastContainer />
         </div>
